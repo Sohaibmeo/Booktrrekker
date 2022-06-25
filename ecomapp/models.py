@@ -55,7 +55,7 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-    
+
 class Product(models.Model):
     title=models.CharField(max_length=200,null=False,blank=False)
     author=models.CharField(max_length=100,null=False,blank=False)
@@ -86,12 +86,12 @@ class ProductUpload(models.Model):
     customer=models.CharField(max_length=100,blank=False,null=False)
     # customer=models.ForeignKey(Customer,on_delete=models.CASCADE)
     # product=models.ForeignKey(Product,on_delete=models.CASCADE)
-    
- 
+
+
 
     def __str__(self):
         return "Product: " + str(self.id)
-    
+
 
 class Cart(models.Model):
     customer=models.ForeignKey(Customer,on_delete=models.SET_NULL,null=True,blank=True)
@@ -136,8 +136,12 @@ class Order(models.Model):
 
      def __str__(self):
         return "Order: " + str(self.id)
-     
 
+class Rating(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE,default=None)
+    movie=models.ForeignKey(Product,on_delete=models.CASCADE,default=None)
+    rating=models.CharField(max_length=70)
+    rated_date=models.DateTimeField(auto_now_add=True)
 
 class Review(models.Model):
     user=models.ForeignKey(User,models.CASCADE)

@@ -1,9 +1,10 @@
 from cProfile import label
-from django import forms 
+from django import forms
+from .models import *
 from django.core.validators import RegexValidator
 from .models import Order,Customer,Product
-from django.contrib.auth.models  import User 
-from django.core.validators import validate_email 
+from django.contrib.auth.models  import User
+from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 import re
 class CheckoutForm(forms.ModelForm):
@@ -41,7 +42,7 @@ class CustomerRegistrationForm(forms.ModelForm):
     alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', 'Only alphanumeric characters are allowed.')
     username=forms.CharField(widget=forms.TextInput(attrs={
         'autofocus': 'autofocus',
-        
+
         'size': '20',
         'style': 'font-size: medium',
         'style':'width :40px',
@@ -80,7 +81,7 @@ class CustomerRegistrationForm(forms.ModelForm):
 
     email= forms.CharField(max_length=30, validators=[RegexValidator(
         r'^[a-z0-9]+[0-9]+@gmail.com+$', message="Enter a valid gmail id")])
-   
+
     address=forms.CharField(widget=forms.TextInput(attrs={
         # "class":"form-control",
         # "multiple":True
@@ -107,7 +108,7 @@ class CustomerRegistrationForm(forms.ModelForm):
         uname=self.cleaned_data.get("username")
         if User.objects.filter(username=uname).exists():
             raise forms.ValidationError("User already exists")
-       
+
         return uname
 
         # else:
@@ -118,23 +119,23 @@ class CustomerRegistrationForm(forms.ModelForm):
         #     elif User.objects.filter(username=uname):
         #         raise forms.ValidationError("User already exists")
         #     else:
-        #         raise forms.ValidationError("Information is not properly given") 
-           
+        #         raise forms.ValidationError("Information is not properly given")
+
 
         # if not uname.isalnum():
         #     raise forms.ValidationError("Username must contains alphabets and numbers")
         # if User.objects.filter(username=uname):
         #     raise forms.ValidationError("User with that userame already exists")
-        # return uname    
+        # return uname
 
 
         # validation for email
-    
+
     def clean_email(self):
         email=self.cleaned_data.get("email")
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError("Email Already Exists")
-        return email 
+        return email
 
 # validation for password
 
@@ -148,7 +149,7 @@ class CustomerRegistrationForm(forms.ModelForm):
 
         return pas
 
-      
+
 
 class CustomerLoginForm(forms.Form):
     username=forms.CharField(widget=forms.TextInput(attrs={
@@ -207,10 +208,10 @@ class ProductForm(forms.ModelForm):
                 "placeholder":"Selling Price of the book"
            }),
            "description":forms.Textarea(attrs={
-              
+
                 "class":"form-control",
                 "placeholder":"Description of the book !!"
-                
+
            }),
            "quantity":forms.NumberInput(attrs={
                 "class":"form-control",
@@ -256,7 +257,7 @@ class PasswordResetForm(forms.Form):
         # "class":"form-control",
         # 'pattern':'[[0-9a-zA-Z]+',
         # "multiple":True
-        
+
         'autofocus': 'autofocus',
         'autocomplete': 'off',
         'style':'width :40px',
@@ -274,3 +275,13 @@ class PasswordResetForm(forms.Form):
             raise forms.ValidationError(
                 "New Passwords did not match!")
         return confirm_new_password
+
+
+class AddRatingForm(forms.ModelForm):
+    class Meta:
+        model=Rating
+        fields=['rating']
+        labels={'rating':'Rating'}
+        widgets={
+            'rating':forms.TextInput(attrs={'type':'range','step':'1','min':'0','max':'5','class':{'custom-range','border-0'}})
+        }
