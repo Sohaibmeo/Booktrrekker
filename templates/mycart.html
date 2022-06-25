@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block title %}My Cart{% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'ecomapp/css/cart.css' %}">
+
+<!-- {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:green"> {{message }}</li>
+    {% endfor %}
+</ul>
+
+{% endif %} -->
+
+
+<ul class="messages" id="messages-list">
+    {% if messages %}
+        {% for message in messages %}
+        <li>
+            {% if message.tags %}
+                 <div class="alert alert-{{ message.tags }} msg fade show" role="alert">{{ message }}</div>
+            {% else %}
+                <div class="alert alert-info msg fade show" role="alert">{{ message }}</div>
+            {% endif %}
+        </li>
+        {% endfor %}
+    {% endif %}
+    </ul>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h4 style="color:dark-blue;">Items in my cart </h4><hr>
+            <table class="table" style="color:blue;">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>Product</th>
+                        <th>Rate</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cp in cart.cartproduct_set.all %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{cp.product.title}}</td>
+                        <td>{{cp.rate}}</td>
+                        <td>{{cp.quantity}}</td>
+                        <td>{{cp.subtotal}}</td>
+                        <td>
+                            <a href="{% url 'ecomapp:managecart' cp.id %}?action=inc" class="btn btn-primary"> + </a>
+                            <a href="{% url 'ecomapp:managecart' cp.id %}?action=dcr" class="btn btn-warning"> - </a>
+                            <a href="{% url 'ecomapp:managecart' cp.id %}?action=rmv" class="btn btn-danger"> x </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <th colspan="4" class="text-center">Total</th>
+                        <th>
+                            <b>Rs. {{cart.total}}</b>
+                        </th>
+                        {% if cart.cartproduct_set.all  %}
+                        <th><a href="{% url 'ecomapp:emptycart' %}">Empty Cart</a>   </th>
+                    {% endif %}
+
+                    </tr>
+                    <tr>
+                        <th><a class="btn btn-info" href="{% url 'ecomapp:checkout' %}"> Checkout</a></th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

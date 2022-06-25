@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}About Us {% endblock %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'ecomapp/css/about.css' %}">
+    <main role="main">
+        <div class="jumbotron my-3">
+          <div class="container">
+              <div class="col-md-8 ">
+            <h1 class="display-7 my-3" style="color:darkblue;">The Book Trekker!</h1>
+            <p class="my-3"> A website that allows users to search and purchase a book based on title, author and subject and get it delivered to his/her doorsteps if required. You can compare the price of a specific books to all the other places its available from. The website contains data of books from all the vendors available and provides the option to search by the nearest vendor and may choose to personally visit them as well. Website has also recommendation system which recommends the books to the users based on their feedback. This website also has the online payment integration method.
+            </p>
+              </div>
+          </div>
+        </div>
+
+        <div id="mission" class="container my-3">
+          <!-- Example row of columns -->
+          <div class="row my-3">
+            <div class="container">
+            <div class="my-3">
+              <h3 style="color:darkblue;">Our Mission</h3>
+              <p  class="my-3">Make it easy to do business in the era of digital economy.To provide an easy system for the upcoming generation to ease their quality of life.
+  </p>
+            </div>
+            </div>
+  <!--          <div class="col-md-4">-->
+              <h3 class="my-3" style="color:darkblue;">Our Values</h3>
+                 <img src='/media/products/abcd.jpg' class="card-img-top" alt="...">
+  <!--          </div>-->
+  <!--          <div class="col-md-4">-->
+              <h3 class="my-3" style="color:darkblue;">Our Promise to Customers</h3>
+                 <img src='/media/products/abcd1.jpg' class="card-img-top" alt="...">
+  <!--          </div>-->
+  <!--        </div>-->
+  <p><a class="btn btn-primary my-4 my-3" href="/contact-us/" role="button">Contact Us Here &raquo;</a></p>
+          <hr>
+
+        </div> <!-- /container -->
+        </div> <!-- /container -->
+
+      </main>
+
+{% endblock %}
+<!-- <div class="dropdownSearch" >
+              
+  <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Search Here For Your Choice
+  </button> -->
+
+  
+  <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <b><p class="mx-3 my-0">Search </p></b>
+    <form class="form-inline my-2 my-lg-0" action="{% url 'ecomapp:search' %}"  >
+      <input  name="keyword" class="form-control mr-sm-2 my-0 text-right" type="search" placeholder="Search" aria-label="Search"
+      required>
+          </form>
+
+         <b> <p class="mx-3 my-0">Book Name </p></b>
+    <form class="form-inline my-2 my-lg-0" action="{% url 'ecomapp:searchbookname' %}"  >
+      <input  name="bookname" class="form-control mr-sm-2 my-0 text-right" type="search" placeholder="Search" aria-label="Search"
+      required>
+          </form>
+
+          <b><p class="mx-3 my-0">By Author </p></b>
+    <form class="form-inline my-2 my-lg-0" action="{% url 'ecomapp:searchauthor' %}"  >
+      <input  name="bookauthor" class="form-control mr-sm-2 my-0 text-right" type="search" placeholder="Search" aria-label="Search"
+      required>
+          </form>
+
+
+          <b><p class="mx-3 my-0">By Category </p></b>
+    <form class="form-inline my-2 my-lg-0" action="{% url 'ecomapp:searchcategory' %}"  >
+      <input  name="bookcategory" class="form-control mr-sm-2 my-0 text-right" type="search" placeholder="Search" aria-label="Search"
+      required>
+          </form>
+        </div>
+      </div> -->

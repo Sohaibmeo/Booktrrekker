@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}
+Customer-login
+{% endblock %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'ecomapp/css/cart.css' %}">
+<style >
+    .errorlist{
+        color:black;
+        background-color:white;
+
+    }
+        </style>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <img   src="/media/products/logo.png" alt="logo" width="200" height="100">
+                <h2 > Login Form</h2><hr>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                   <p> <b>{{form.as_p}}</b></p>
+                    <button class="btn btn-info">Login</button>
+                    {% if error%}
+                    <list style="color:red; background-color:white" >{{error}}</list>
+                    {% endif %}
+                </form>
+                <p class="my-3"  >Forgot Password?<a href="{% url 'ecomapp:passwordforgot' %}"><b>Reset Password</b></a></p>
+               <p>Dont have an account? <a href="/register"{% if request.GET.next %}?next="{{request.next.GET}}{% endif %}"><b>Register </b></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

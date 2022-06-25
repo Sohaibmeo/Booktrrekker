@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %} {{Product.title}} {% endblock %}
+
+
+{% block content  %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'ecomapp/css/product.css' %}">
+ <div class="container" >
+     <h3 >{{product.title}}</h3><hr>
+     <h3>Author Name:{{product.author}}</h3>
+     
+     <div class="col-md-6">
+         <img src="{{product.image.url}}" alt="" class="img-fluid">
+         <div class="row" >
+             {% for pi in product.productimage_set.all %}
+             <div class="check ">
+                 <img src="{{pi.image.url}}" class="img-fluid" alt="">
+             </div>
+             {% endfor %}
+         </div>
+
+     </div>
+     <div class="colmd-8">
+        <!-- <h5 style="color: red;">Book Name:{{product.title}} </h3> -->
+            <h5 class="my-3" style="color:darkblue;">Total Views: {{product.view_count}} </h5>
+           
+        <h5>Category: {{product.category}}</h3>
+        <!-- <p>Descritpion : {{product.description}}</p> -->
+        <h5 ">Price: <strike>{{product.marked_price}}</strike> Rs : {{product.selling_price}}</h5>
+        {% if product.quantity > 0 %}
+        <a href="{% url 'ecomapp:addtocart' product.id  %}" class="btn btn-light my-3">Add To Cart</a>
+        <h5 >Total Stock:{{product.quantity}}</h5>
+        <hr>
+        {% else %}
+        <b class="link-danger my-2" ><p>Out of Stock</p></b>
+        {% endif %}
+        <h5 >Description: {{product.description}}</h5>
+        <hr>
+        <!-- <h5 >Return Policy: {{product.return_policy}}</h5> -->
+        
+     </div>
+
+
+         </div>
+     </form>
+ </div>
+{% endblock %}

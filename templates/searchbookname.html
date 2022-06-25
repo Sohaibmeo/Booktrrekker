@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Search-Product{% endblock %}
+{% block content %}
+ <div class="container">
+     <div class="row">
+         <div class="col-md-12">
+             <h3>Searched Results for <span class="text-warning">{{ request.GET.bookname }}</span></h3>
+             <hr>
+             {% for result in results %}
+             <div class="row">
+                 <div class="col-md-4">
+                     <img src="{{result.image.url}}" class="img-fluid" alt="">
+                 </div>
+                 <div class="col-md-8">
+                     <h4><a href="{% url 'ecomapp:productdetail' result.slug %}"> {{result.title}}</a></h4>
+                     <p>{{result.description|truncatewords:90}}</p>
+                     <p>Return Policy:{{result.return_policy}}</p>
+                     <a href="{% url 'ecomapp:addtocart' result.id  %}" class="btn btn-primary">Add To Cart</a>
+                 </div>
+             </div>
+
+             {% endfor %}
+         </div>
+     </div>
+ </div>
+{% endblock %}

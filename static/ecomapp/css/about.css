@@ -1,0 +1,21 @@
+.container{
+  display: flex;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
+  border-radius: 5px;
+  backdrop-filter: blur(14px);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.align{
+  display: flex;
+  justify-content: center;
+}
+.btn{
+margin:auto;
+}
+p {
+  color:white;
+  font-size: 20px;
+   font-family: "Sofia", sans-serif;
+}

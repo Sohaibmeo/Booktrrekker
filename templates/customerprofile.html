@@ -1,0 +1,77 @@
+{% extends 'base.html'  %}
+
+{% block title %} My Profile{% endblock %}
+{% block content  %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'ecomapp/css/cart.css' %}">
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+          <h3>Detail Information</h3>
+          <p><span class="font-weight-bold" style="color:black"><b>Name :</b> </span>{{customer.full_name }}</p>
+          <p><span class="font-weight-bold" style="color:black"><b>Username : </b></span>{{customer.user.username }}</p>
+          <p><span class="font-weight-bold" style="color:black"><b>Email :</b> </span>{{customer.user.email }}</p>
+          <p><span class="font-weight-bold" style="color:black"><b>Address :</b> </span>{{customer.address}}</p>
+          <p><span class="font-weight-bold" style="color:black"><b>Joined on :</b> </span>{{customer.joined_on }}</p>
+        </div>
+        <div class="col-md-8"></div>
+        <h3>Previous order details </h3>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>SN</th>
+                    <th>Order Id</th>
+                    <th>Amount</th>
+                    <th>Ordered On</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ord in orders %}
+                    <tr>
+
+                        <td>
+                            {{forloop.counter}}
+                        </td>
+                        <td> <a href="{% url 'ecomapp:customerorderdetail' ord.pk %}"> Order#{{ord.id}}</a></td>
+                        <td>{{ord.total}}</td>
+                        <td>{{ord.created_at|timesince}} ago</td>
+                        <td>{{ord.order_status}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>SN</th>
+                   
+                    <th>Book Name</th>
+                    <th>Price</th>
+                   
+                </tr>
+            </thead>
+
+
+            <h3>My uploaded books </h3>
+            
+            <tbody>
+                {% for prod in uploadedProducts %}
+                    <tr>
+
+                        <td>
+                            {{forloop.counter}}
+                        </td>
+                        <td> <a href="{% url 'ecomapp:customerorderdetail' ord.pk %}"> Order#{{prod.id}}</a></td>
+                        <td>{{prod.customer}}</td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+</div>
+</div>
+</div>
+{% endblock %}

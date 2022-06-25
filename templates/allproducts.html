@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} All Products {% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'ecomapp/css/category.css' %}">
+
+ <div class="container">
+     <h3  class="text-center">All Categories</h3><hr>
+     {% for cat in allcategories %}
+     <h3  class="my-3">{{cat.title}}</h3>
+     <hr>
+     <div class="row">
+        {% for p in cat.product_set.all %}
+        <div class="col-md-3  card">
+            <div class="m-4">
+        <h4><a class="textupdt"  href="{% url 'ecomapp:productdetail' p.slug %}">{{p.title}}</a></h4>
+        <img class="check" src="{{p.image.url}}" alt="" class="img-fluid">
+        <p ><strong>Rs:{{p.selling_price}}</strong></p>
+        {% if p.quantity > 0 %}
+        <!-- <p ><strong>Rs:{{p.selling_price}}</strong></p>s -->
+        <a href="{% url 'ecomapp:addtocart' p.id  %}" class="btn btn-light my-3">Add To Cart</a>
+        <b class="link-success"><p>In Stock Available</p></b>
+        {% else %}
+        <b class="link-danger my-2" ><p>Out of Stock</p></b>
+        {% endif %} 
+    </div>
+    </div>
+        {% endfor %}
+
+     </div>
+     {% endfor %}
+ </div>
+ {% endblock %}

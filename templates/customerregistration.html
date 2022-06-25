@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Registration {% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'ecomapp/css/cart.css' %}">
+<style>
+.errorlist{
+    color:red;
+
+}
+    </style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <!-- <div  class="text-center my-5 mb-1 mt-4"> -->
+                <img src="/media/products/logo.png" alt="logo" width="200" height="100">
+            <!-- </div> -->
+            <h2 >Registration Form</h2><hr>
+
+            <form action="" method="POST">
+                {% csrf_token %}
+               <p> <b>{{form.as_p}}</b></p>
+                <button class="btn btn-info ">Register</button>
+            </form>
+            <p>Already have an account? <a class="my-3" href="/login"> Login</a></p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
