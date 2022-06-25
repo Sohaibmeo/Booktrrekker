@@ -35,15 +35,7 @@ class Contact(models.Model):
     def __str__(self):
         return self.email
 
-class Admin(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE)
-    full_name=models.CharField(max_length=100,default="newadmin")
-    image=models.ImageField(upload_to="admins")
-    mobile=models.CharField(max_length=20,default="")
 
-
-    def __str__(self):
-        return self.user.username
 
 
 

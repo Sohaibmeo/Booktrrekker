@@ -273,7 +273,10 @@ class CustomerRegistrationView(CreateView):
 
         user=User.objects.create_user(username,email,password)
         form.instance.user=user
+        
         login(self.request,user)
+        request.session ['user_id']=user.id
+        request.session ['user_email']=user.email
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -330,7 +333,7 @@ class ContactView(EcomMixin,TemplateView):
         desc=request.POST.get('desc',default="" ) 
         query=Contact(name=name,email=email,phone=phone,desc=desc)
         query.save()
-        thank=True
+        
         return redirect("/all-products/")
 
 
@@ -520,7 +523,7 @@ class CustomerProductCreateView(LoginRequiredMixin,CreateView):
             ProductImage.objects.create(product=p,image=i)
 # track history of user uploaded products
         usr =self.request.user
-        ProductUpload.objects.create(customer=usr)
+        ProductUpload.objects.create(customer=usr,product=p)
         
 
         # userProduct=ProductUpload.objects.filtesr()

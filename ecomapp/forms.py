@@ -9,16 +9,28 @@ import re
 class CheckoutForm(forms.ModelForm):
     ordered_by=forms.CharField(widget=forms.TextInput(attrs={
         "class":"form-control",
-        "multiple":True}))
+        # 'size': '20',
+        # 'style': 'font-size: medium',
+        # 'style':'width :40px',
+        # 'style':  'height: 30px',
+        "multiple":True,
+        }))
     shipping_address=forms.CharField(widget=forms.TextInput(attrs={
         "class":"form-control",
-        "multiple":True}))
+        # 'size': '20',
+        # 'style': 'font-size: medium',
+        # 'style':'width :40px',
+        # 'style':  'height: 30px',
+        "multiple":True
+        }))
     mobile=forms.IntegerField(widget=forms.TextInput(attrs={
         "class":"form-control",
-        "multiple":True}))
+        "multiple":True
+        }))
     email=forms.EmailField(widget=forms.EmailInput(attrs={
         "class":"form-control",
-        "multiple":True}))
+        "multiple":True
+        }))
 
     class Meta:
         model=Order
