@@ -16,6 +16,9 @@
         </div>
         <div class="col-md-8"></div>
         <h3>Previous order details </h3>
+        {% if not orders %}
+        <h5 style="color:red">You don't have place any oreder before</h5>
+        {% else %}
         <hr>
         <table class="table">
             <thead>
@@ -52,7 +55,7 @@
                    
                 </tr>
             </thead>
-
+{% endif %}
 
             <h3>My uploaded books </h3>
             

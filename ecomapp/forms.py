@@ -1,3 +1,4 @@
+from cProfile import label
 from django import forms 
 from django.core.validators import RegexValidator
 from .models import Order,Customer,Product
@@ -8,16 +9,28 @@ import re
 class CheckoutForm(forms.ModelForm):
     ordered_by=forms.CharField(widget=forms.TextInput(attrs={
         "class":"form-control",
-        "multiple":True}))
+        # 'size': '20',
+        # 'style': 'font-size: medium',
+        # 'style':'width :40px',
+        # 'style':  'height: 30px',
+        "multiple":True,
+        }))
     shipping_address=forms.CharField(widget=forms.TextInput(attrs={
         "class":"form-control",
-        "multiple":True}))
+        # 'size': '20',
+        # 'style': 'font-size: medium',
+        # 'style':'width :40px',
+        # 'style':  'height: 30px',
+        "multiple":True
+        }))
     mobile=forms.IntegerField(widget=forms.TextInput(attrs={
         "class":"form-control",
-        "multiple":True}))
+        "multiple":True
+        }))
     email=forms.EmailField(widget=forms.EmailInput(attrs={
         "class":"form-control",
-        "multiple":True}))
+        "multiple":True
+        }))
 
     class Meta:
         model=Order
@@ -27,40 +40,85 @@ class CheckoutForm(forms.ModelForm):
 class CustomerRegistrationForm(forms.ModelForm):
     alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', 'Only alphanumeric characters are allowed.')
     username=forms.CharField(widget=forms.TextInput(attrs={
-        "class":"form-control",
-        'pattern':'[[0-9a-zA-Z]+',
-        "multiple":True}))
+        'autofocus': 'autofocus',
+        
+        'size': '20',
+        'style': 'font-size: medium',
+        'style':'width :40px',
+        'style':  'height: 30px'
+        # "class":"form-control",
+        # 'pattern':'[[0-9a-zA-Z]+',
+        # "multiple":True
+        }))
+    username = forms.CharField(max_length=20, validators=[RegexValidator(
+        r'^(?=.{8,20}$)(?:[a-zA-Z\d]+(?:(?:\.|-|_)[a-zA-Z\d])*)+[a-zA-Z0-9]+[0-9]+$', message="Enter a valid username")])
     password=forms.CharField(widget=forms.PasswordInput(attrs={
-        "class":"form-control",
-        'pattern':'[[0-9a-zA-Z]+',
-        "multiple":True}))
-    email=forms.CharField(widget=forms.EmailInput(attrs={
-        "class":"form-control",
-        "multiple":True}))
+        # "class":"form-control",
+        # 'pattern':'[[0-9a-zA-Z]+',
+        # "multiple":True
+        'label':"One Capital Letter,Special Character,One Number,Length Should be 8-18",
+        'autofocus': 'autofocus',
+        'autocomplete': 'off',
+        'style':'width :40px',
+        'style':  'height: 30px',
+        'size': '20',
+        'style': 'font-size: medium'
+        }))
 
+    password= forms.CharField(min_length=8, validators=[RegexValidator(
+        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,18}$', message="Password must contain 1:Capital Letter,Special Character,1:Number & Length Should be 8-18")])
+    email=forms.CharField(widget=forms.EmailInput(attrs={
+        # "class":"form-control",
+        # "multiple":True,
+        'autofocus': 'autofocus',
+        'autocomplete': 'off',
+        'size': '20',
+        'style':'width :40px',
+        'style':  'height: 30px',
+        'style': 'font-size: medium'
+        }))
+
+    email= forms.CharField(max_length=30, validators=[RegexValidator(
+        r'^[a-z0-9]+[0-9]+@gmail.com+$', message="Enter a valid gmail id")])
+   
     address=forms.CharField(widget=forms.TextInput(attrs={
-        "class":"form-control",
-        "multiple":True}))
+        # "class":"form-control",
+        # "multiple":True
+        'autofocus': 'autofocus',
+        'autocomplete': 'off',
+        'size': '20',
+        'style':'width :40px',
+        'style':  'height: 30px',
+        'style': 'font-size: medium'
+         }))
     full_name=forms.CharField(widget=forms.TextInput(attrs={
-        "class":"form-control",
-        "multiple":True}))
+        # "class":"form-control",
+        # "multiple":True
+        'autofocus': 'autofocus',
+        'autocomplete': 'off',
+        'size': '20',
+        'style': 'font-size: medium',
+        }))
     class Meta:
         model=Customer
         fields=["username","password","email", "full_name","address"]
     # for username validation
     def clean_username(self):
         uname=self.cleaned_data.get("username")
-        if len(uname)>7 & uname.isalnum() and not User.objects.filter(username=uname):
-            return uname
-        else:
-            if len(uname)<7:
-                raise forms.ValidationError("Username length must be gretaer than 7")
-            elif not uname.isalnum():
-                raise forms.ValidationError("Username length must be alphanumeric")
-            elif User.objects.filter(username=uname):
-                raise forms.ValidationError("User already exists")
-            else:
-                raise forms.ValidationError("Information is not properly given") 
+        if User.objects.filter(username=uname).exists():
+            raise forms.ValidationError("User already exists")
+       
+        return uname
+
+        # else:
+        #     if len(uname)<7:
+        #         raise forms.ValidationError("Username length must be gretaer than 7")
+        #     elif not uname.isalnum():
+        #         raise forms.ValidationError("Username length must be alphanumeric")
+        #     elif User.objects.filter(username=uname):
+        #         raise forms.ValidationError("User already exists")
+        #     else:
+        #         raise forms.ValidationError("Information is not properly given") 
            
 
         # if not uname.isalnum():
@@ -82,11 +140,9 @@ class CustomerRegistrationForm(forms.ModelForm):
 
     def clean_password(self):
         pas=self.cleaned_data.get("password")
-        if len(pas)<8:
-            raise forms.ValidationError("Password length too short")
-        
-        if not pas.isalnum():
-            raise forms.ValidationError("Password must contains alphabets and numbers")
+
+        # if not pas.isalnum():
+        #     raise forms.ValidationError("Password must contains alphabets and numbers")
         # if pas==username:
         #     raise forms.ValidationError("Username and password must not be same")
 
@@ -96,11 +152,21 @@ class CustomerRegistrationForm(forms.ModelForm):
 
 class CustomerLoginForm(forms.Form):
     username=forms.CharField(widget=forms.TextInput(attrs={
-        "class":"form-control",
-        "multiple":True}))
+        # "class":"form-control",
+        # "multiple":True
+        'autofocus': 'autofocus',
+        'autocomplete': 'off',
+        'size': '20',
+        'style': 'font-size: medium',
+        }))
     password=forms.CharField(widget=forms.PasswordInput(attrs={
-        "class":"form-control",
-        "multiple":True}))
+        # "class":"form-control",
+        # "multiple":True
+        'autofocus': 'autofocus',
+        'autocomplete': 'off',
+        'size': '20',
+        'style': 'font-size: medium',
+        }))
 
 # admin forms
 class ProductForm(forms.ModelForm):
@@ -167,17 +233,40 @@ class PasswordForgotForm(forms.Form):
         return e
 
 class PasswordResetForm(forms.Form):
-    new_password = forms.CharField(widget=forms.PasswordInput(attrs={
-        'class': 'form-control',
-        'autocomplete': 'new-password',
-        'placeholder': 'Enter New Password',
-    }), label="New Password")
-    confirm_new_password = forms.CharField(widget=forms.PasswordInput(attrs={
-        'class': 'form-control',
-        'autocomplete': 'new-password',
-        'placeholder': 'Confirm New Password',
-    }), label="Confirm New Password")
+    new_password=forms.CharField(widget=forms.PasswordInput(attrs={
+        # "class":"form-control",
+        # 'pattern':'[[0-9a-zA-Z]+',
+        # "multiple":True
+        'autofocus': 'autofocus',
+        'autocomplete': 'off',
+        'style':'width :40px',
+        'style':  'height: 30px',
+        'size': '20',
+        'style': 'font-size: medium'
+        }))
 
+    new_password= forms.CharField(min_length=8, validators=[RegexValidator(
+        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,18}$', message="Password must contain 1:Capital Letter,Special Character,1:Number & Length Should be 8-18")])
+    # confirm_new_password = forms.CharField(widget=forms.PasswordInput(attrs={
+    #     'class': 'form-control',
+    #     'autocomplete': 'new-password',
+    #     'placeholder': 'Confirm New Password',
+    # }), label="Confirm New Password")
+    confirm_new_password=forms.CharField(widget=forms.PasswordInput(attrs={
+        # "class":"form-control",
+        # 'pattern':'[[0-9a-zA-Z]+',
+        # "multiple":True
+        
+        'autofocus': 'autofocus',
+        'autocomplete': 'off',
+        'style':'width :40px',
+        'style':  'height: 30px',
+        'size': '20',
+        'style': 'font-size: medium'
+        }))
+
+    confirm_new_password= forms.CharField(min_length=8, validators=[RegexValidator(
+        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,18}$', message="Password must contain 1:Capital Letter,Special Character,1:Number & Length Should be 8-18")])
     def clean_confirm_new_password(self):
         new_password = self.cleaned_data.get("new_password")
         confirm_new_password = self.cleaned_data.get("confirm_new_password")
