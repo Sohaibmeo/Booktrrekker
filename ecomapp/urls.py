@@ -1,6 +1,6 @@
 from xmlrpc.client import APPLICATION_ERROR
-from django.urls import path 
-from .views import* 
+from django.urls import path
+from .views import*
 from . import views
 app_name="ecomapp"
 urlpatterns=[
@@ -28,12 +28,13 @@ urlpatterns=[
     path("searchauthor/",SearchAuthorView.as_view(),name="searchauthor"),
     path("searchbookname/",SearchBookNameView.as_view(),name="searchbookname"),
     path("searchcategory/",SearchCategoryView.as_view(),name="searchcategory"),
-    
+
     # path("want-to-sell/",WantToSellView.as_view(),name="wanttosell"),
     path("review/", views.Review_rate, name="review"),
     path("forgot-password/", PasswordForgotView.as_view(), name="passwordforgot"),
     path("password-reset/<email>/<token>/",PasswordResetView.as_view(),name="passwordreset"),
-
+    path('idea/',views.Idea,name="idea"),
+    path('dashboard/',views.dashboard,name="dashboard"),
     # customer  product upload starts here
     path("customer-product/add/", CustomerProductCreateView.as_view(),name="customerproductcreate"),
 
