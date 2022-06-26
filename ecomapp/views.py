@@ -541,7 +541,7 @@ def generateRecommendation(request):
     B=[]
     C=[]
     D=[]
-    #Movie Data Frames
+    #Books Data Frames
     for item in movie:
         x=[item.id,item.title,item.image.url,item.category]
 
