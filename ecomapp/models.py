@@ -83,10 +83,10 @@ class ProductImage(models.Model):
     def __str__(self):
         return self.product.title
 
-class ProductUpload(models.Model):
-    customer=models.CharField(max_length=100,blank=False,null=False)
-    # customer=models.ForeignKey(Customer,on_delete=models.CASCADE)
-    # product=models.ForeignKey(Product,on_delete=models.CASCADE)
+# class ProductUpload(models.Model):
+#     customer=models.CharField(max_length=100,blank=False,null=False)
+#     # customer=models.ForeignKey(Customer,on_delete=models.CASCADE)
+#     # product=models.ForeignKey(Product,on_delete=models.CASCADE)
 
 
 
