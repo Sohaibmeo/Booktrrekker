@@ -76,7 +76,7 @@ class CheckoutForm(forms.ModelForm):
         "multiple":True
         }))
     mobile = forms.CharField(max_length=11,min_length=11 ,validators=[RegexValidator(
-        r'^(\+92|03|92)[0-9]{10}$', message="Enter a valid mobile#")])
+        r'^(\+92|03|92)+[0-9]{9}$', message="Enter a valid mobile#")])
      
     email=forms.EmailField(widget=forms.EmailInput(attrs={
         # "class":"form-control",
