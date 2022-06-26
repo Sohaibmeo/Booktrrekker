@@ -49,7 +49,8 @@
   }
 }
 body{
-  z-index: 1 ;
+
+  z-index: 0 ;
   display: grid;
   top: 0;
   left: 0;
@@ -81,6 +82,14 @@ body{
 li a:hover {
   background-color:#296354;
   border-radius: 50px;
+}
+.dropdown-toggle{
+  z-index: 5000;
+}
+.dropdownSearch{
+  position: absolute;
+  z-index: 5000;
+  overflow: visible;
 }
 .nav-item{
   font-size: 1em;
@@ -178,62 +187,65 @@ li:last-child {
               {% endif %}
             </div>
           </li>
+          <li>
+            <div class="dropdownSearch"  >
+              <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <i> Search Here For Your Choice</i>
+                </button>
+
+
+
+               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <b><p class="mx-3 my-0">Search </p></b>
+                <form class="form-inline my-2 my-lg-0" action="{% url 'ecomapp:search' %}"  >
+                  <input  name="keyword" class="form-control mr-sm-2 my-0 text-right" type="search" placeholder="Search" aria-label="Search"
+                  required>
+                      </form>
+
+                     <b> <p class="mx-3 my-0">Book Name </p></b>
+                <form class="form-inline my-2 my-lg-0" action="{% url 'ecomapp:searchbookname' %}"  >
+                  <input  name="bookname" class="form-control mr-sm-2 my-0 text-right" type="search" placeholder="Search" aria-label="Search"
+                  required>
+                      </form>
+
+                      <b><p class="mx-3 my-0">By Author </p></b>
+                <form class="form-inline my-2 my-lg-0" action="{% url 'ecomapp:searchauthor' %}"  >
+                  <input  name="bookauthor" class="form-control mr-sm-2 my-0 text-right" type="search" placeholder="Search" aria-label="Search"
+                  required>
+                      </form>
+
+
+                      <b><p class="mx-3 my-0">By Category </p></b>
+                <form class="form-inline my-2 my-lg-0" action="{% url 'ecomapp:searchcategory' %}"  >
+                  <input  name="bookcategory" class="form-control mr-sm-2 my-0 text-right" type="search" placeholder="Search" aria-label="Search"
+                  required>
+                      </form>
+                    </div>
+
+
+
+
+
+                  <!-- <div class="pull-right">
+                        <form
+                        class="form-inline my-2 my-lg-0 "action="{% url 'ecomapp:search' %}"  >
+                          <input  name="keyword" class="form-control mr-sm-2 my-2 text-centre" type="search" placeholder="Search" aria-label="Search"
+                            required
+                          />
+                         <div class="button-color">
+                          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </div>
+                        </form>
+
+                      </div> -->
+
+                  </div>
+          </li>
 
         </ul>
 
 
-<div class="dropdownSearch"  >
-  <button style="background-color:white ;"  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-   <i> Search Here For Your Choice</i>
-    </button>
 
-
-
-   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <b><p class="mx-3 my-0">Search </p></b>
-    <form class="form-inline my-2 my-lg-0" action="{% url 'ecomapp:search' %}"  >
-      <input  name="keyword" class="form-control mr-sm-2 my-0 text-right" type="search" placeholder="Search" aria-label="Search"
-      required>
-          </form>
-
-         <b> <p class="mx-3 my-0">Book Name </p></b>
-    <form class="form-inline my-2 my-lg-0" action="{% url 'ecomapp:searchbookname' %}"  >
-      <input  name="bookname" class="form-control mr-sm-2 my-0 text-right" type="search" placeholder="Search" aria-label="Search"
-      required>
-          </form>
-
-          <b><p class="mx-3 my-0">By Author </p></b>
-    <form class="form-inline my-2 my-lg-0" action="{% url 'ecomapp:searchauthor' %}"  >
-      <input  name="bookauthor" class="form-control mr-sm-2 my-0 text-right" type="search" placeholder="Search" aria-label="Search"
-      required>
-          </form>
-
-
-          <b><p class="mx-3 my-0">By Category </p></b>
-    <form class="form-inline my-2 my-lg-0" action="{% url 'ecomapp:searchcategory' %}"  >
-      <input  name="bookcategory" class="form-control mr-sm-2 my-0 text-right" type="search" placeholder="Search" aria-label="Search"
-      required>
-          </form>
-        </div>
-
-
-
-
-
-      <!-- <div class="pull-right">
-            <form
-            class="form-inline my-2 my-lg-0 "action="{% url 'ecomapp:search' %}"  >
-              <input  name="keyword" class="form-control mr-sm-2 my-2 text-centre" type="search" placeholder="Search" aria-label="Search"
-                required
-              />
-             <div class="button-color">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </div>
-            </form>
-
-          </div> -->
-
-      </div>
     </nav>
   </div>
     <!-- <a href="/contact-us/">Contact Us</a>
