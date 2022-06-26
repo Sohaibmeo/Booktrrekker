@@ -175,6 +175,8 @@ li:last-child {
               {% if request.user.customer %}
               <a class="dropdown-item " href="/profile/"> My Profile </a>
               <a class="dropdown-item" href="/logout/"> Logout </a>
+              <a class="dropdown-item" href="/dashboard/">Feedback</a>
+              <a class="dropdown-item" href="/idea/">Recommend</a>
               {% else %}
               <a class="dropdown-item" href="/register/">Register</a>
               <a class="dropdown-item" href="/login/">Login</a>
