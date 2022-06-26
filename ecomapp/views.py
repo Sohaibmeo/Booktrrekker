@@ -262,6 +262,15 @@ class MyCartView(EcomMixin,TemplateView):
         return context
 
 class CustomerRegistrationView(CreateView):
+    def dispatch(self, request, *args, **kwargs):
+        usr =request.user
+        if request.user.is_authenticated :
+            return redirect("/all-products/")
+        else:
+            # to append url patteren  after login he/she should directly return to checkout
+            pass
+        # print(user)
+        return super().dispatch(request, *args, **kwargs)
     template_name="customerregistration.html"
     form_class=CustomerRegistrationForm
     success_url=reverse_lazy("ecomapp:home")
