@@ -464,8 +464,7 @@ class SearchView(TemplateView):
         context=super().get_context_data(**kwargs)
         kw=self.request.GET.get('keyword')
         #  here iconyains meanes there is no case sensitivity in searchong products
-        results=Product.objects.filter(Q(title__icontains=kw) | Q(description__icontains=kw)
-        | Q(return_policy__icontains=kw))
+        results=Product.objects.filter(Q(title__icontains=kw) | Q(description__icontains=kw))
         context['results']=results
         return context
 
@@ -492,8 +491,7 @@ class SearchCategoryView(TemplateView):
         context=super().get_context_data(**kwargs)
         bookcategory=self.request.GET.get('bookcategory')
         #  here icontains meanes there is no case sensitivity in searchong products
-        results=Product.objects.filter(Q(title__icontains=bookcategory) | Q(description__icontains=bookcategory)
-        | Q(return_policy__icontains=bookcategory))
+        results=Product.objects.filter(Q(title__icontains=bookcategory) | Q(description__icontains=bookcategory))
         context['results']=results
         return context
 

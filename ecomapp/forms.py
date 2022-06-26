@@ -188,7 +188,7 @@ class ProductForm(forms.ModelForm):
            "author":forms.TextInput(attrs={
                  "class":"form-control",
                  "placeholder":"Author Name"
-           }),
+           }),  
            "slug":forms.TextInput(attrs={
                  "class":"form-control",
                  "placeholder":"Enter unique slug here!!!"
