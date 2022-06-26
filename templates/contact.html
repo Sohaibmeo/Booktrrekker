@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
-{% block title %}Contact Us{% endblock %}
-{% block content %}
+{% block title %}Contact{% endblock %}
+{% block content  %}
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'ecomapp/css/contactus.css' %}">
-<!-- {% block body %} -->
- <div class="container ">
+<link rel="stylesheet" href="{% static 'ecomapp/css/contactus.css' %}">
+ <div class="container">
    	<div class="front side">
    		<div class="content"><h1>WE VALUE YOUR OPINION</h1>
-			<p>We are constantly looking forward to improve ourself and are willing to look at every problem for both of our sake!
+			<p class="my-3">We are constantly looking forward to improve ourself and are willing to look at every problem for both of our sake!
         Please feel free to drop any comments you have
 			</p>
+      <i class="fa fa-instagram" style="font-size:48px;color:red"></i>
 		</div>
 	</div>
 
@@ -38,12 +39,9 @@
     <label for="desc"><b>How may i help you ?</b></label>
     <textarea class="form-control" name="desc" id="desc" rows="3" required></textarea>
   </div>
-         <button type="submit" class="btn btn-primary my-4">Submit</button>
+         <button type="submit" class="btn btn-primary my-4 white-mode">Submit</button>
 </form>
  </div>
 </div>
 </div>
-
-{% endblock %}
-
-{% endblock %}
+    {% endblock %}
