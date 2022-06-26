@@ -49,8 +49,6 @@
   }
 }
 body{
-
-  z-index: 0 ;
   display: grid;
   top: 0;
   left: 0;
@@ -83,14 +81,8 @@ li a:hover {
   background-color:#296354;
   border-radius: 50px;
 }
-.dropdown-toggle{
-  z-index: 5000;
-}
-.dropdownSearch{
-  position: absolute;
-  z-index: 5000;
-  overflow: visible;
-}
+
+
 .nav-item{
   font-size: 1em;
   font-family: emoji;
@@ -107,9 +99,11 @@ li:last-child {
     margin-right: 30px;
     padding-left: 400px;
 }
+.navbar{
+  z-index: 2;
+}
 .dropdown-menu{
-  z-index: 9999 !important;
-  position: relative;
+
   background-color:#2e6b5c ;
 }
 .button-color{
