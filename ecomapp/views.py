@@ -522,13 +522,13 @@ class CustomerProductCreateView(LoginRequiredMixin,CreateView):
         for i in images:
             ProductImage.objects.create(product=p,image=i)
 # track history of user uploaded products
-        usr =self.request.user
-        ProductUpload.objects.create(customer=usr,product=p)
+        # usr =self.request.user
+        # ProductUpload.objects.create(customer=usr,product=p)
 
 
         # userProduct=ProductUpload.objects.filter()    
         # =ProductUpload()
-        print(usr)
+        # print(usr)
 
         return super().form_valid(form)
 
