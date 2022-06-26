@@ -526,7 +526,7 @@ class CustomerProductCreateView(LoginRequiredMixin,CreateView):
         ProductUpload.objects.create(customer=usr,product=p)
 
 
-        # userProduct=ProductUpload.objects.filtesr()
+        # userProduct=ProductUpload.objects.filter()    
         # =ProductUpload()
         print(usr)
 
