@@ -30,7 +30,7 @@ urlpatterns=[
     path("searchcategory/",SearchCategoryView.as_view(),name="searchcategory"),
 
     # path("want-to-sell/",WantToSellView.as_view(),name="wanttosell"),
-    path("review/", views.Review_rate, name="review"),
+    # path("review/", views.Review_rate, name="review"),
     path("forgot-password/", PasswordForgotView.as_view(), name="passwordforgot"),
     path("password-reset/<email>/<token>/",PasswordResetView.as_view(),name="passwordreset"),
     path('dashboard/',views.dashboard,name="dashboard"),

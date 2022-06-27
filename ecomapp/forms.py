@@ -197,10 +197,6 @@ class CustomerRegistrationForm(forms.ModelForm):
     def clean_password(self):
         pas=self.cleaned_data.get("password")
 
-        # if not pas.isalnum():
-        #     raise forms.ValidationError("Password must contains alphabets and numbers")
-        # if pas==username:
-        #     raise forms.ValidationError("Username and password must not be same")
 
         return pas
 

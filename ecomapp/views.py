@@ -15,6 +15,7 @@ from sre_constants import SUCCESS
 import math
 from urllib import request
 from wsgiref.util import request_uri
+from django.core.validators import RegexValidator
 from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView,CreateView,FormView  ,DetailView , ListView
 from .models import *
@@ -773,12 +774,4 @@ def dashboard(request):
     else:
         return HttpResponseRedirect('/login/')
 
-def Review_rate(request,id):
-    if request.method=="GET":
-        prod_id=request.GET.get('prod_id')
-        product=Product.objects.get(id=prod_id)
-        comment=request.GET.get("comment")
-        rate=request.GET.get("rate")
-        user=request.user
-        Review(user=user,product=product,comment=comment,rate=rate).save()
-        return redirect("productdetail.html",id=prod_id)
+
