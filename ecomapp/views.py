@@ -386,8 +386,8 @@ class CustomerProfileView(TemplateView):
         orders=Order.objects.filter(cart__customer=customer).order_by("-id")
         context['orders']=orders
         # get the products uploaded by particular user
-        uploadedProducts=ProductUpload.objects.filter(customer=customer)
-        context['uploadedProducts']=uploadedProducts
+        # uploadedProducts=ProductUpload.objects.filter(customer=customer)
+        # context['uploadedProducts']=uploadedProducts
         return context
 
 
@@ -699,6 +699,13 @@ def generateRecommendation(request):
             return recommender.to_dict('records')
 
 def filterMovieByGenre():
+
+    #  all_products=Product.objects.all().order_by("-id")
+    #     # how many number of items to be shown on the home page
+    #     paginator=Paginator(all_products,4)
+    #     page_number=self.request.GET.get('page')
+    #     product_list=paginator.get_page(page_number)
+    #     context['product_list']=product_list
      #filtering by genres
     allMovies=[]
     genresMovie= Product.objects.values('category', 'id')
@@ -724,8 +731,21 @@ def filterMovieByGenre():
 #     params['recommended']=generateRecommendation(request)
 #     return render(request,'idea.html',params)
 
-def dashboard(request):
 
+class HomeView(EcomMixin,TemplateView):
+    template_name="home.html"
+
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        all_products=Product.objects.all().order_by("-id")
+        # how many number of items to be shown on the home page
+        paginator=Paginator(all_products,4)
+        page_number=self.request.GET.get('page')
+        product_list=paginator.get_page(page_number)
+        context['product_list']=product_list
+        return context
+
+def dashboard(request):
     if request.user.is_authenticated:
         params=filterMovieByGenre()
         params['user']=request.user
