@@ -702,47 +702,38 @@ def generateRecommendation(request):
 
 
 
+class Dashboard1(EcomMixin,TemplateView):
+    template_name="dashboard1.html"
 
-def Dashboard1(request):
+    def get_context_data(self,**kwargs):
+        context=super().get_context_data(**kwargs)
+        all_products=Product.objects.all().order_by("-id")
+        # how many number of items to be shown on the home page
+        paginator=Paginator(all_products,4)
+        page_number=self.request.GET.get('page')
+        product_list=paginator.get_page(page_number)
+        context['product_list']=product_list
+        context['all_products']=all_products
+        return context
+    def post(self,request,*args,**kwargs):
+        context=super().get_context_data(**kwargs)
+        pro_id=request.POST.get('movieid')
+        userid=request.POST.get('userid')
+        movie=Product.objects.all()
+        u=User.objects.get(pk=userid)
+        m=Product.objects.get(pk=pro_id)
+        rfm=AddRatingForm(request.POST)
+        if rfm.is_valid():
+            rat=rfm.cleaned_data['rating']
+            count=Rating.objects.filter(user=u,movie=m).count()
+            if(count>0):
+                messages.warning(request,'You have already submitted your review!!')
+                return context
+            action=Rating(user=u,movie=m,rating=rat)
+            action.save()
+            messages.success(request,'You have submitted'+' '+rat+' '+"star")
+            context["rform"]=rfm
 
-
-        if request.user.is_authenticated:
-            allMovies=[]
-            movie=Product.objects.all()
-            allMovies.append([movie, range(1, 4),4])
-            params={'allMovies':allMovies }
-            params['user']=request.user
-            if request.method=='POST':
-                pro_id=request.POST.get('movieid')
-                userid=request.POST.get('userid')
-
-                print("lets see this ")
-                print(pro_id)
-                movie=Product.objects.all()
-                u=User.objects.get(pk=userid)
-                m=Product.objects.get(pk=pro_id)
-
-                # m = get_object_or_404(Product, pk=comment_id)
-                rfm=AddRatingForm(request.POST)
-                params['rform']=rfm
-                if rfm.is_valid():
-                    rat=rfm.cleaned_data['rating']
-                    count=Rating.objects.filter(user=u,movie=m).count()
-                    if(count>0):
-                        messages.warning(request,'You have already submitted your review!!')
-                        return render(request,'dashboard1.html',params)
-                    action=Rating(user=u,movie=m,rating=rat)
-                    action.save()
-                    messages.success(request,'You have submitted'+' '+rat+' '+"star")
-                return render(request,'dashboard1.html',params)
-            else:
-                #print(request.user.id)
-                rfm=AddRatingForm()
-                params['rform']=rfm
-                movie=Product.objects.all()
-                return render(request,'dashboard1.html',params)
-        else:
-            return HttpResponseRedirect('/login/')
 
 class HomeView(EcomMixin,TemplateView):
     template_name="home.html"
