@@ -743,6 +743,7 @@ class HomeView(EcomMixin,TemplateView):
         page_number=self.request.GET.get('page')
         product_list=paginator.get_page(page_number)
         context['product_list']=product_list
+        context['recommended']=generateRecommendation(self.request)
         return context
 
 def dashboard(request):
