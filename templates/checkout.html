@@ -42,10 +42,11 @@
             <form action="" method="POST">
                 {% csrf_token %}
                 <b style="color:blue;">{{form.as_p}}</b>
-
+                <div id="paypal-button-container"></div>
                 <button class="btn btn-primary">
-                   <div id="paypal-button-container"></div>
+                   Payment
                 </button>
+                
 
             </form>
         </div>
@@ -53,7 +54,7 @@
 </div>
 
 <!-- Sample PayPal credentials (client-id) are included -->
-<!-- <script src="{% static 'ecomapp/js/hello.js' %}"></script> -->
+<script src="{% static 'ecomapp/js/hello.js' %}"></script>
 <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD&intent=capture&enable-funding=venmo"></script>
 <script >
   const paypalButtonsComponent = paypal.Buttons({
