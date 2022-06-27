@@ -713,38 +713,8 @@ def generateRecommendation(request):
             print(recommender)
             return recommender.to_dict('records')
 
-def filterMovieByGenre():
 
-    #  all_products=Product.objects.all().order_by("-id")
-    #     # how many number of items to be shown on the home page
-    #     paginator=Paginator(all_products,4)
-    #     page_number=self.request.GET.get('page')
-    #     product_list=paginator.get_page(page_number)
-    #     context['product_list']=product_list
-     #filtering by genres
-    allMovies=[]
-    genresMovie= Product.objects.values('category', 'id')
-    genres= {item["category"] for item in genresMovie}
-    for genre in genres:
-        movie=Product.objects.filter(category=genre)
-        print(movie)
-        n = len(movie)
-        nSlides = n // 4 + math.ceil((n / 4) - (n // 4))
-        allMovies.append([movie, range(1, nSlides), nSlides])
-    params={'allMovies':allMovies }
-    return params
 
-# Feedback protion
-# class Idea(EcomMixin,TemplateView):
-#     template_name="idea.html"
-#     def get_context_data(self, **kwargs):
-#           context=super().get_context_data(**kwargs)
-#           context['recommended']=generateRecommendation(request)
-#           return context
-# def Idea(request):
-#     params=filterMovieByGenre()
-#     params['recommended']=generateRecommendation(request)
-#     return render(request,'idea.html',params)
 
 
 class HomeView(EcomMixin,TemplateView):
@@ -762,9 +732,14 @@ class HomeView(EcomMixin,TemplateView):
         context['recommended']=generateRecommendation(self.request)
         return context
 
+
 def dashboard(request):
+
     if request.user.is_authenticated:
-        params=filterMovieByGenre()
+        allMovies=[]
+        movie=Product.objects.all()
+        allMovies.append([movie, range(0, 3),4])
+        params={'allMovies':allMovies }
         params['user']=request.user
         if request.method=='POST':
             pro_id=request.POST.get('movieid')
