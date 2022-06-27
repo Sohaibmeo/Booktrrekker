@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Dashboard{% endblock title %}
 {% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'ecomapp/css/dashboard.css' %}">
 <div class="container wrapper">
      {% if messages %}
                 {%for msg in messages%}
@@ -27,35 +30,10 @@
     <div class="container carousel-inner no-padding">
 
       <div class="carousel-item active">
+
+        {% for i in movie|slice:"0:"%}
         <div class="col-xs-3 col-sm-3 col-md-3">
-
-
-          <div class="card" style="width: 18rem">
-             <img class="card-img-top" src="{{movie.0.image.url}}"  alt="Card image cap" height="250px" width="200px">
-                      <div class="card-body">
-                        <h5 class="card-title">{{movie.0.title}}</h5>
-                         <form action="" method="post" class="range-field">
-                                                                        {% csrf_token %}
-                                                                        <input type="hidden" name="movieid" value="{{movie.0.id}}"/>
-                                                                        <input type="hidden" name="userid" value="{{user.id}}"/>
-                                                                        {{rform.as_p}}
-                                                                        <div class="showrating">
-
-                                                                        </div>
-                                                                        <input type="submit" class="btn btn-primary" value="Submit">
-                        </form>
-                      </div>
-                      <div class="card-footer">
-                        <small class="text-muted">{{movie.0.genres}}</small>
-                        <small class="text-muted">{{movie.0.movieduration}}</small>
-                     </div>
-          </div>
-       </div>
-
-
-        {% for i in movie|slice:"1:"%}
-        <div class="col-xs-3 col-sm-3 col-md-3">
-         <div class="card" style="width: 18rem">
+         <div class="card">
              <img class="card-img-top" src="{{i.image.url}}"  alt="Card image cap" height="250px" width="200px">
                       <div class="card-body">
                         <h5 class="card-title">{{i.title}}</h5>

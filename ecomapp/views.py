@@ -756,7 +756,7 @@ def dashboard(request):
     if request.user.is_authenticated:
         allMovies=[]
         movie=Product.objects.all()
-        allMovies.append([movie, range(1, 4),4])
+        allMovies.append([movie, range(0, 3),4])
         params={'allMovies':allMovies }
         params['user']=request.user
         if request.method=='POST':
