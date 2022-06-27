@@ -62,6 +62,7 @@ class HomeView(EcomMixin,TemplateView):
         page_number=self.request.GET.get('page')
         product_list=paginator.get_page(page_number)
         context['product_list']=product_list
+        context['all_products']=all_products
         context['recommended']=generateRecommendation(self.request)
         return context
 
@@ -566,10 +567,10 @@ def generateRecommendation(request):
     D=[]
     #Books Data Frames
     for item in movie:
-        x=[item.id,item.title,item.image.url,item.category]
+        x=[item.id,item.title,item.image.url,item.category,item.slug]
 
         y+=[x]
-    movies_df = pd.DataFrame(y,columns=['pro_id','title','image','category'])
+    movies_df = pd.DataFrame(y,columns=['pro_id','title','image','category','slug'])
     print("Movies DataFrame")
     print(movies_df)
     print(movies_df.dtypes)
@@ -693,7 +694,7 @@ def generateRecommendation(request):
             recommendation_df.head()
 
             recommendation_df = recommendation_df.sort_values(by='weighted average recommendation score', ascending=False)
-            recommender=movies_df.loc[movies_df['pro_id'].isin(recommendation_df.head(5)['pro_id'].tolist())]
+            recommender=movies_df.loc[movies_df['pro_id'].isin(recommendation_df.head(8)['pro_id'].tolist())]
             print(recommender)
             return recommender.to_dict('records')
 
