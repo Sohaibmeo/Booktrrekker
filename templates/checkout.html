@@ -44,8 +44,64 @@
                 <b style="color:blue;">{{form.as_p}}</b>
 
                 <button class="btn btn-primary">Place Order</button>
+                <div id="paypal-button-container"></div>
             </form>
         </div>
     </div>
 </div>
+
+<!-- Sample PayPal credentials (client-id) are included -->
+<script src="{% static 'ecomapp/js/hello.js' %}"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD&intent=capture&enable-funding=venmo"></script>
+<script >
+  const paypalButtonsComponent = paypal.Buttons({
+      // optional styling for buttons
+      // https://developer.paypal.com/docs/checkout/standard/customize/buttons-style-guide/
+      style: {
+        color: "gold",
+        shape: "rect",
+        layout: "vertical"
+      },
+
+      // set up the transaction
+      createOrder: (data, actions) => {
+          // pass in any options from the v2 orders create call:
+          // https://developer.paypal.com/api/orders/v2/#orders-create-request-body
+          const createOrderPayload = {
+              purchase_units: [
+                  {
+                      amount: {
+                          value: "{{cart.total}}"
+                      }
+                  }
+              ]
+          };
+
+          return actions.order.create(createOrderPayload);
+      },
+
+      // finalize the transaction
+      onApprove: (data, actions) => {
+          const captureOrderHandler = (details) => {
+              const payerName = details.payer.name.given_name;
+              console.log('Transaction completed');
+              alert("Payment Received")
+          };
+
+          return actions.order.capture().then(captureOrderHandler);
+      },
+
+      // handle unrecoverable errors
+      onError: (err) => {
+          console.error('An error prevented the buyer from checking out with PayPal');
+      }
+  });
+
+  paypalButtonsComponent
+      .render("#paypal-button-container")
+      .catch((err) => {
+          console.error('PayPal Buttons failed to render');
+      });
+
+</script>
 {% endblock %}

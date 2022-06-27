@@ -2,6 +2,8 @@
 {% block title %}My Dashboard       {% endblock %}
 {% block content  %}
 {% load static  %}
+
+
 <link rel="stylesheet" type="text/css" href="{% static 'ecomapp/css/style.css' %}"/>
 <!-- {% load static %} -->
 <!-- {% if not orders %}
@@ -36,4 +38,14 @@
         {% endfor %}
      </div>
  </div>
- {% endblock %}
+
+ <link rel="stylesheet" href="{% static 'ecomapp/css/category.css' %}">
+
+
+
+         <div id="paypal-button-container"></div>
+         <!-- Sample PayPal credentials (client-id) are included -->
+ <script src="{% static 'ecomapp/js/hello.js' %}"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD&intent=capture&enable-funding=venmo"></script>
+    <script src="{% static 'ecomapp/js/checkout.js' %}"> </script>
+  {% endblock %}
