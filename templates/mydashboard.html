@@ -14,8 +14,8 @@
         <img src="{{q.product.image.url}}" alt="">
         {% endfor %}
         {% endfor %}
-     
-            
+
+
 
 {% endif %}  -->
 <link rel="stylesheet" href="{% static 'ecomapp/css/category.css' %}">
@@ -24,7 +24,7 @@
 <h3>My Purchased Books</h3>
      <hr>
      <div class="row">
-        {% for ord in orders %} 
+        {% for ord in orders %}
         {% for q in ord.cart.cartproduct_set.all %}
         <div class="col-md-3  card">
             <div class="m-4">
