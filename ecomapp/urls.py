@@ -22,8 +22,8 @@ urlpatterns=[
 
     path("profile/order-<int:pk>/",CustomerOrderDetailView.as_view(),name="customerorderdetail"),
     path("mydashboard/",MyDashboardView.as_view(),name="orderedbooks"),
-
-
+    path('create-checkout-session/', views.create_checkout_session), # new
+    path('config/', views.stripe_config),
     path("search/",SearchView.as_view(),name="search"),
     path("searchauthor/",SearchAuthorView.as_view(),name="searchauthor"),
     path("searchbookname/",SearchBookNameView.as_view(),name="searchbookname"),

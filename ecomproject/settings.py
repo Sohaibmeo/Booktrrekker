@@ -150,3 +150,6 @@ GRAPH_MODELS = {
   'all_applications': True,
   'group_models': True,
 }
+
+STRIPE_SECRET_KEY = 'sk_test_51LFJP5KkpqXslIQH7NMdUDWB46AReuHeHVzcpXraaOu6fGmyNvoxqJ5DOwbunhkzQ59ZTKngAbSRLhsYYmDzg8BO00yCU9lZPf'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51LFJP5KkpqXslIQHDL6hqnCmyvxcCndR005R3dd6GHx9yPrnrbCcISQccz70dfFW46mF1mj70lRhK88loCwdHjxK00TwR9zOpw'

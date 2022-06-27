@@ -48,4 +48,16 @@
  <script src="{% static 'ecomapp/js/hello.js' %}"></script>
   <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD&intent=capture&enable-funding=venmo"></script>
     <script src="{% static 'ecomapp/js/checkout.js' %}"> </script>
+
+
+    <section class="section">
+        <div class="container">
+          <button class="button is-primary" id="submitBtn">  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button">
+                data-key="{{ key }}"
+                data-description="Payment Gateway"
+                data-amount="500"
+                data-locale="auto"
+            </script></button>
+        </div>
+      </section>
   {% endblock %}
