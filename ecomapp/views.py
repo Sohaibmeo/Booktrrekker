@@ -1,5 +1,5 @@
-from django.core.validators import validate_email
-from django.core.exceptions import ValidationError
+# from django.core.validators import validate_email
+# from django.core.exceptions import ValidationError
 from genericpath import exists
 from django.shortcuts import get_object_or_404
 from itertools import product
@@ -29,6 +29,7 @@ from .utils import password_reset_token
 
 from django.core.mail import send_mail
 from django.conf import settings
+
 
 
 # libraries for recommendations system
@@ -776,5 +777,4 @@ def dashboard(request):
             return render(request,'dashboard.html',params)
     else:
         return HttpResponseRedirect('/login/')
-
 
