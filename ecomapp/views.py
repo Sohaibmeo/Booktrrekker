@@ -51,8 +51,6 @@ class EcomMixin(object):
 
         return super().dispatch(request,*args,**kwargs)
 
-<<<<<<< HEAD
-=======
 class HomeView(EcomMixin,TemplateView):
     template_name="home.html"
 
@@ -66,7 +64,6 @@ class HomeView(EcomMixin,TemplateView):
         context['product_list']=product_list
         context['recommended']=generateRecommendation(self.request)
         return context
->>>>>>> 3e1d29441297b083a635a80f19ec05707e3497b7
 
 class AllProductsView(EcomMixin, TemplateView):
     template_name="allproducts.html"
