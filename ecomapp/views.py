@@ -51,6 +51,22 @@ class EcomMixin(object):
 
         return super().dispatch(request,*args,**kwargs)
 
+<<<<<<< HEAD
+=======
+class HomeView(EcomMixin,TemplateView):
+    template_name="home.html"
+
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        all_products=Product.objects.all().order_by("-id")
+        # how many number of items to be shown on the home page
+        paginator=Paginator(all_products,4)
+        page_number=self.request.GET.get('page')
+        product_list=paginator.get_page(page_number)
+        context['product_list']=product_list
+        context['recommended']=generateRecommendation(self.request)
+        return context
+>>>>>>> 3e1d29441297b083a635a80f19ec05707e3497b7
 
 class AllProductsView(EcomMixin, TemplateView):
     template_name="allproducts.html"
@@ -63,6 +79,7 @@ class AllProductsView(EcomMixin, TemplateView):
 
 class ProductDetailView(EcomMixin,TemplateView):
     template_name="productdetail.html"
+
     def get_context_data(self, **kwargs):
           context=super().get_context_data(**kwargs)
           url_slug=self.kwargs['slug']
@@ -71,6 +88,8 @@ class ProductDetailView(EcomMixin,TemplateView):
           product.save()
           context['product']=product
           return context
+
+
 class AddToCartView(EcomMixin,TemplateView):
     template_name = "addtocart.html"
 
@@ -709,10 +728,10 @@ def filterMovieByGenre():
 #           context=super().get_context_data(**kwargs)
 #           context['recommended']=generateRecommendation(request)
 #           return context
-def Idea(request):
-    params=filterMovieByGenre()
-    params['recommended']=generateRecommendation(request)
-    return render(request,'idea.html',params)
+# def Idea(request):
+#     params=filterMovieByGenre()
+#     params['recommended']=generateRecommendation(request)
+#     return render(request,'idea.html',params)
 
 
 class HomeView(EcomMixin,TemplateView):
