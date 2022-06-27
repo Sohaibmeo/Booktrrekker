@@ -363,6 +363,21 @@ class ContactView(EcomMixin,TemplateView):
         return redirect("/all-products/")
 
 
+# mydashboard only to show the books that are already bought
+class MyDashboardView(TemplateView):
+    template_name="mydashboard.html"
+
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        customer=self.request.user.customer
+        context['customer']=customer
+        orders=Order.objects.filter(cart__customer=customer).order_by("-id")
+        print(orders)
+        context['orders']=orders
+        return context
+
+
+
 
 
 class CustomerProfileView(TemplateView):

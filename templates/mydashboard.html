@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}My Dashboard       {% endblock %}
+{% block content  %}
+{% load static  %}
+<link rel="stylesheet" type="text/css" href="{% static 'ecomapp/css/style.css' %}"/>
+<!-- {% load static %} -->
+<!-- {% if not orders %}
+<h5 style="color:red">You don't have place any order before</h5>
+{% else %}
+<hr>
+<h3>My ordered books </h3>
+   {% for ord in orders %}
+   {% for q in ord.cart.cartproduct_set.all %}
+        <img src="{{q.product.image.url}}" alt="">
+        {% endfor %}
+        {% endfor %}
+     
+            
+
+{% endif %}  -->
+<link rel="stylesheet" href="{% static 'ecomapp/css/category.css' %}">
+
+ <div class="container">
+<h3>My Purchased Books</h3>
+     <hr>
+     <div class="row">
+        {% for ord in orders %} 
+        {% for q in ord.cart.cartproduct_set.all %}
+        <div class="col-md-3  card">
+            <div class="m-4">
+        <h4>{{q.product.title}}</h4>
+        <img class="check" src="{{q.product.image.url}}" alt="" class="img-fluid">
+    </div>
+    </div>
+        {% endfor %}
+        {% endfor %}
+     </div>
+ </div>
+ {% endblock %}

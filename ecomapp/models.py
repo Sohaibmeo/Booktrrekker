@@ -128,11 +128,10 @@ class Order(models.Model):
      mobile=models.CharField(max_length=11)
      email=models.CharField(max_length=100,null=False,blank=False)
      subtotal=models.PositiveBigIntegerField(default=0)
-    #  discount=models.PositiveBigIntegerField(default=0)
      total=models.PositiveBigIntegerField(default=0)
      order_status=models.CharField(max_length=200,choices=ORDER_STATUS)
      created_at=models.DateTimeField(auto_now_add=True)
-    #  coupon=models.ForeignKey(Coupon,on_delete=models.set_NULL,blank=True,null=True)
+
 
 
      def __str__(self):
