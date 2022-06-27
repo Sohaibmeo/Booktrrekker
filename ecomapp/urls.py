@@ -33,7 +33,6 @@ urlpatterns=[
     path("review/", views.Review_rate, name="review"),
     path("forgot-password/", PasswordForgotView.as_view(), name="passwordforgot"),
     path("password-reset/<email>/<token>/",PasswordResetView.as_view(),name="passwordreset"),
-    path('idea/',views.Idea,name="idea"),
     path('dashboard/',views.dashboard,name="dashboard"),
     # customer  product upload starts here
     path("customer-product/add/", CustomerProductCreateView.as_view(),name="customerproductcreate"),
