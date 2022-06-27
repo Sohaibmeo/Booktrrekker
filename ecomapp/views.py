@@ -17,6 +17,7 @@ from urllib import request
 from wsgiref.util import request_uri
 from django.core.validators import RegexValidator
 from django.shortcuts import render,redirect
+import stripe
 from django.views.generic import View,TemplateView,CreateView,FormView  ,DetailView , ListView
 from .models import *
 from .forms import CheckoutForm , CustomerRegistrationForm,CustomerLoginForm,ProductForm,PasswordForgotForm,PasswordResetForm,AddRatingForm
@@ -349,6 +350,8 @@ class CustomerLoginView(FormView):
 
 class AboutView(EcomMixin,TemplateView):
     template_name="about.html"
+
+
 
 class ContactView(EcomMixin,TemplateView):
     template_name="contact.html"
