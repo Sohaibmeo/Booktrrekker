@@ -29,7 +29,6 @@ urlpatterns=[
     path("forgot-password/", PasswordForgotView.as_view(), name="passwordforgot"),
     path("password-reset/<email>/<token>/",PasswordResetView.as_view(),name="passwordreset"),
     path('dashboard/',views.dashboard,name="dashboard"),
-    path('dashboard1/',Dashboard1.as_view(),name="dashboard1"),
     # customer  product upload starts here
     path("customer-product/add/", CustomerProductCreateView.as_view(),name="customerproductcreate"),
 

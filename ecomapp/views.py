@@ -702,39 +702,6 @@ def generateRecommendation(request):
 
 
 
-class Dashboard1(EcomMixin,TemplateView):
-    template_name="dashboard1.html"
-
-    def get_context_data(self,**kwargs):
-        context=super().get_context_data(**kwargs)
-        all_products=Product.objects.all().order_by("-id")
-        # how many number of items to be shown on the home page
-        paginator=Paginator(all_products,4)
-        page_number=self.request.GET.get('page')
-        product_list=paginator.get_page(page_number)
-        context['product_list']=product_list
-        context['all_products']=all_products
-        return context
-    def post(self,request,*args,**kwargs):
-        context=super().get_context_data(**kwargs)
-        pro_id=request.POST.get('movieid')
-        userid=request.POST.get('userid')
-        movie=Product.objects.all()
-        u=User.objects.get(pk=userid)
-        m=Product.objects.get(pk=pro_id)
-        rfm=AddRatingForm(request.POST)
-        if rfm.is_valid():
-            rat=rfm.cleaned_data['rating']
-            count=Rating.objects.filter(user=u,movie=m).count()
-            if(count>0):
-                messages.warning(request,'You have already submitted your review!!')
-                return context
-            action=Rating(user=u,movie=m,rating=rat)
-            action.save()
-            messages.success(request,'You have submitted'+' '+rat+' '+"star")
-            context["rform"]=rfm
-
-
 class HomeView(EcomMixin,TemplateView):
     template_name="home.html"
 
