@@ -272,8 +272,12 @@ class ProductForm(forms.ModelForm):
 
 class PasswordForgotForm(forms.Form):
     email=forms.CharField(widget=forms.EmailInput(attrs={
-        "class":"form-control",
-        "placeholder":"Enter your email used in account"
+        # "class":"form-control",
+        'autofocus': 'autofocus',
+        'autocomplete': 'off',
+        'size': '20',
+        'style': 'font-size: large',
+        "placeholder":"Your email!!"
     }))
     # if u want to validate field only eg: email
     def clean_email(self):
