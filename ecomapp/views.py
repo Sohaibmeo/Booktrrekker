@@ -385,8 +385,8 @@ class CustomerProfileView(TemplateView):
         orders=Order.objects.filter(cart__customer=customer).order_by("-id")
         context['orders']=orders
         # get the products uploaded by particular user
-        uploadedProducts=ProductUpload.objects.filter(customer=customer)
-        context['uploadedProducts']=uploadedProducts
+        # uploadedProducts=ProductUpload.objects.filter(customer=customer)
+        # context['uploadedProducts']=uploadedProducts
         return context
 
 
