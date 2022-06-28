@@ -24,18 +24,18 @@
                         <img src="{{cp.product.image.url}}" alt="">
                         
                         <tr>
-                        <td>{{forloop.counter}}</td>
-                        <td><a target="_blank" href="{% url 'ecomapp:productdetail' cp.product.slug  %}">{{cp.product.title}}({{cp.product.id}})</a></td>
-                        <td>{{cp.rate}}</td>
+                        <td><b>{{forloop.counter}}</b></td>
+                        <td><b><a target="_blank" style="color:black" href="{% url 'ecomapp:productdetail' cp.product.slug  %}">{{cp.product.title}}({{cp.product.id}})</a></b></td>
+                        <td><b>{{cp.rate}}</b></td>
         
-                        <td>{{cp.quantity}}</td>
-                        <td>{{cp.subtotal}} </td>
+                        <td><b>{{cp.quantity}}</b></td>
+                        <td><b>{{cp.subtotal}} </b></td>
                        
                         </tr>
                         {% endfor %}
                         <tr>
                             <th colspan="4" class="text-right">Total:</th>
-                            <th colspan="4">Rs.{{ord_obj.total|intcomma}}</th>
+                            <th colspan="4"><b>Rs.{{ord_obj.total|intcomma}}</b></th>
                         </tr>
                         <tr>
 
