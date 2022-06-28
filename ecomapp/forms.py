@@ -234,15 +234,28 @@ class ProductForm(forms.ModelForm):
         widgets={
              "title":forms.TextInput(attrs={
                  "class":"form-control",
-                 "placeholder":"Enter book name here!!!"
+                    # 'autofocus': 'autofocus',
+                    # 'autocomplete': 'off',
+                    #  'size': '20',
+                    #  'style': 'font-size: large',
+                    # "placeholder":"Enter book name here!!!"
            }),
            "author":forms.TextInput(attrs={
                  "class":"form-control",
-                 "placeholder":"Author Name"
+                    # 'autofocus': 'autofocus',
+                    # 'autocomplete': 'off',
+                    #  'size': '20',
+                    #  'style': 'font-size: large',
+                    # "placeholder":"Author Name!!!"
+                 
            }),  
            "slug":forms.TextInput(attrs={
                  "class":"form-control",
-                 "placeholder":"Enter unique slug here!!!"
+                # 'autofocus': 'autofocus',
+                #     'autocomplete': 'off',
+                #      'size': '20',
+                #      'style': 'font-size: large',
+                #  "placeholder":"Enter unique slug here!!!"
            }),
            "category":forms.Select(attrs={
                 "class":"form-control"
