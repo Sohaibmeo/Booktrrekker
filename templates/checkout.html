@@ -42,11 +42,11 @@
             <form action="" method="POST">
                 {% csrf_token %}
                 <b style="color:blue;">{{form.as_p}}</b>
-                <div id="paypal-button-container"></div>
-                <button class="btn btn-primary">
-                   Payment
+
+                <button class="btn btn-primary" id="btn" >
+                   <div id="paypal-button-container" class="hide"></div>
                 </button>
-                
+
 
             </form>
         </div>
@@ -57,6 +57,12 @@
 <script src="{% static 'ecomapp/js/hello.js' %}"></script>
 <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD&intent=capture&enable-funding=venmo"></script>
 <script >
+  function completeOrder(){
+    var heading = document.getElementById('btn');
+    const el = document.getElementById('paypal-button-container');
+    el.style.display="none";
+    heading.textContent = 'Proceed';
+  }
   const paypalButtonsComponent = paypal.Buttons({
       // optional styling for buttons
       // https://developer.paypal.com/docs/checkout/standard/customize/buttons-style-guide/
@@ -89,6 +95,7 @@
               const payerName = details.payer.name.given_name;
               console.log('Transaction completed');
               alert("Payment Received")
+              completeOrder();
           };
 
           return actions.order.capture().then(captureOrderHandler);
