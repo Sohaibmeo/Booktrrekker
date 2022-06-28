@@ -214,6 +214,15 @@ class EmptyCartView(EcomMixin,TemplateView):
             cart_obj.save()
         return redirect("ecomapp:mycart")
 
+class RemoveProductView(EcomMixin,TemplateView):
+    def get(self,request,*args,**kwargs):
+        prod_id=self.kwargs["prod_id"]
+        prod=Product.objects.get(id=prod_id)
+        prod.delete()
+        print("hello")
+        return redirect("ecomapp:customerprofile")    
+
+
 class CheckoutView(EcomMixin,CreateView):
     template_name="checkout.html"
     form_class=CheckoutForm

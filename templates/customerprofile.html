@@ -50,12 +50,19 @@
         <h3>My uploaded books </h3> 
         {% if myproducts %}
         <table class="table">
+            
             <thead>
                 <tr>
+                    
                     <th>SN</th>
+                    
                    
                     <th>Book Name</th>
                     <th>Price</th>
+                    <th>Total Stock</th>
+                    <th>Total Sold</th>
+                    <th>Remove Ad</th>
+                    
                    
                 </tr>
             </thead>
@@ -70,16 +77,31 @@
                             <b>{{forloop.counter}}</b>
                         </td>
                        
-                        <td><b>{{prod.title}}</b></td>
+                        <!-- <td><b>{{prod.title}}</b></td> -->
+                        <td><b><a target="_blank" style="color:black" href="{% url 'ecomapp:productdetail' prod.slug  %}">{{prod.title}}</a></b></td>
                         <td><b>{{prod.selling_price}}</b></td>
-
+                        <td><b> {{prod.quantity}}</b></td>
+                        <td><b>{{prod.quantity}}</b></td>
+                        <td>
+                            
+                            <a href="{% url 'ecomapp:removeproduct' prod.id %}" class="btn btn-danger"> Delete Ad </a>
+                         
+                        </td>
+                        
                     </tr>
                 {% endfor %}
+                <!-- <tr>
+               
+                    <th><a style="color: black;" href="{% url 'ecomapp:emptycart' %}">Remove Ad</a>   </th>
+    
+                </tr> -->
             </tbody>
             {% else %}
             <h5 style="color: red;">You don't have any uploaded books</h5>
             {% endif %}
+          
         </table>
+
 
 </div>
 </div>
