@@ -65,11 +65,9 @@ class Product(models.Model):
     marked_price=models.PositiveBigIntegerField(null=False,blank=False)
     selling_price=models.PositiveBigIntegerField(null=False,blank=False)
     description=models.TextField(null=False,blank=False)
-    # warranty=models.CharField(max_length=300,null=True,blank=True)
-    # return_policy=models.CharField(max_length=300,null=True,blank=True)
     view_count=models.PositiveIntegerField(default=0)
     quantity=models.PositiveBigIntegerField(default=0)
-    # user= models.ForeignKey(User,on_delete=models.CASCADE)
+    user=models.TextField(max_length=20,null=False,blank=False,default="Admin")
 
 
     def __str__(self):

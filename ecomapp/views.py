@@ -75,7 +75,6 @@ class AllProductsView(EcomMixin, TemplateView):
     def get_context_data(self, **kwargs):
           context=super().get_context_data(**kwargs)
           context["allcategories"]=Category.objects.all()
-
           return context
 
 class ProductDetailView(EcomMixin,TemplateView):
@@ -405,6 +404,8 @@ class CustomerProfileView(TemplateView):
         # need to fileter out orders whose cart customers = customer above
         orders=Order.objects.filter(cart__customer=customer).order_by("-id")
         context['orders']=orders
+        user_products=Product.objects.filter(user=self.request.user.email)
+        context['myproducts']=user_products
         # get the products uploaded by particular user
         # uploadedProducts=ProductUpload.objects.filter(customer=customer)
         # context['uploadedProducts']=uploadedProducts
@@ -561,7 +562,13 @@ class CustomerProductCreateView(LoginRequiredMixin,CreateView):
     success_url=reverse_lazy("ecomapp:allproducts")
 
     def form_valid(self, form):
+        # p.user=self.request.user.customer
         p=form.save()
+        user=self.request.user
+        prod=User.objects.get(email=user.email)
+        p.user=prod.email
+        print(p.user)
+        p.save()
         images=self.request.FILES.getlist("more_images")
         for i in images:
             ProductImage.objects.create(product=p,image=i)

@@ -7,8 +7,8 @@ Customer-login
 <link rel="stylesheet" href="{% static 'ecomapp/css/cart.css' %}">
 <style >
     .errorlist{
-        color:black;
-        background-color:white;
+        color:red;
+        background-color:black;
 
     }
         </style>
@@ -25,8 +25,8 @@ Customer-login
                     <list style="color:red; background-color:white" >{{error}}</list>
                     {% endif %}
                 </form>
-                <p class="my-3"  >Forgot Password?<a href="{% url 'ecomapp:passwordforgot' %}"><b>Reset Password</b></a></p>
-               <p>Dont have an account? <a href="/register"{% if request.GET.next %}?next="{{request.next.GET}}{% endif %}"><b>Register </b></a>
+                <b><p class="my-3" style="color: black;" >Forgot Password ?<a href="{% url 'ecomapp:passwordforgot' %}"><b style="color:red">Reset Password</b></a></p></b>
+               <b><p style="color: black;">Dont have an account ? <a href="/register"{% if request.GET.next %}?next="{{request.next.GET}}{% endif %}"><b style="color:red">Register </b></a></b>
             </div>
         </div>
     </div>

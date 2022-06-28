@@ -17,7 +17,7 @@
         <div class="col-md-8"></div>
         <h3>Previous order details </h3>
         {% if not orders %}
-        <h5 style="color:red">You don't have place any oreder before</h5>
+        <h5 style="color:red">You don't have place any order before</h5>
         {% else %}
         <hr>
         <table class="table">
@@ -35,16 +35,20 @@
                     <tr>
 
                         <td>
-                            {{forloop.counter}}
+                            <b>{{forloop.counter}}</b>
                         </td>
-                        <td> <a href="{% url 'ecomapp:customerorderdetail' ord.pk %}"> Order#{{ord.id}}</a></td>
-                        <td>{{ord.total}}</td>
-                        <td>{{ord.created_at|timesince}} ago</td>
-                        <td>{{ord.order_status}}</td>
+                        <td> <b ><a style="color: black;" href="{% url 'ecomapp:customerorderdetail' ord.pk %}"> Order#{{ord.id}}</a></b></td>
+                        <td><b>{{ord.total}}</b></td>
+                        <td><b>{{ord.created_at|timesince}} ago</b></td>
+                        <td><b>{{ord.order_status}}</b></td>
                     </tr>
                 {% endfor %}
+                
             </tbody>
         </table>
+        {% endif %}
+        <h3>My uploaded books </h3> 
+        {% if myproducts %}
         <table class="table">
             <thead>
                 <tr>
@@ -55,23 +59,26 @@
                    
                 </tr>
             </thead>
-{% endif %}
 
-            <!-- <h3>My uploaded books </h3>
-            
+
+
             <tbody>
-                {% for prod in uploadedProducts %}
+                {% for prod in myproducts %}
                     <tr>
 
                         <td>
                             {{forloop.counter}}
                         </td>
-                        <td> <a href="{% url 'ecomapp:customerorderdetail' ord.pk %}"> Order#{{prod.id}}</a></td>
-                        <td>{{prod.customer}}</td>
+                       
+                        <td>{{prod.title}}</td>
+                        <td>{{prod.selling_price}}</td>
 
                     </tr>
                 {% endfor %}
-            </tbody> -->
+            </tbody>
+            {% else %}
+            <h5 style="color: red;">You don't have any uploaded books</h5>
+            {% endif %}
         </table>
 
 </div>
