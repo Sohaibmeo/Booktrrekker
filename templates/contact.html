@@ -21,8 +21,8 @@
                     <h2 > Contact Us </h2><hr>
                     <form action="" method="POST">
                         {% csrf_token %}
-                       <p> <b>{{form.as_p}}</b></p>
-                        <button class="btn btn-info">Contact Us</button>
+                       <p> <b style="color: black;">{{form.as_p}}</b></p>
+                        <button class="btn btn-danger">Submit Query</button>
                         {% if error%}
                         <list style="color:red; background-color:white" >{{error}}</list>
                         {% endif %}

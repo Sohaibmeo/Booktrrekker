@@ -384,7 +384,7 @@ class ContactUsForm(forms.ModelForm):
         }))
     phone = forms.CharField(validators=[RegexValidator(
         r'^(\+923|03|923)+[0-9]{9}$', message="Enter a valid mobile#")])
-    desc=forms.CharField(widget=forms.TextInput(attrs={
+    desc=forms.CharField(widget=forms.Textarea(attrs={
         # "class":"form-control",
         'size': '20',
         'style': 'font-size: medium',
