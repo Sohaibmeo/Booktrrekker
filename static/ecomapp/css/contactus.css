@@ -46,11 +46,14 @@ form {
 }
 form input,
 form textarea {
-	padding: 5px;
-	width: 100%;
-	color: #fff;
+	    padding: 5px;
+	    width: 100%;
+	    color: #160202;
 }
-form input[type="submit"] {
+textarea {
+    height: 100px !important;
+}
+input[type="submit"] {
 	display: block;
 	width: auto;
 	margin: 10px auto;

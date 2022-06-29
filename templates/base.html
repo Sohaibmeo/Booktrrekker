@@ -38,7 +38,11 @@
   text-align: center;
   animation: glow 1s ease-in-out infinite alternate;
 }
-
+input[type=text],input[type=password] {
+  padding:5px;
+  border:0;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+}
 @-webkit-keyframes glow {
   from {
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
@@ -171,17 +175,25 @@ li:last-child {
             >
             <i class="fa fa-fw fa-user"></i>   MyAccount
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              {% if request.user.customer %}
-              <a class="dropdown-item " href="/profile/"> My Profile </a>
-              <a class="dropdown-item" href="/logout/"> Logout </a>
-              <a class="dropdown-item" href="/dashboard/">Feedback</a>
-              <a class="dropdown-item" href="/gen_pdf/">Products</a>
-              <a class="dropdown-item" href="/gen1_pdf/">Cart</a>
-              {% else %}
-              <a class="dropdown-item" href="/register/">Register</a>
-              <a class="dropdown-item" href="/login/">Login</a>
-              {% endif %}
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% if request.user.username != 'sohaib'   %}
+
+                {% if request.user.customer %}
+                <a class="dropdown-item " href="/profile/"> My Profile </a>
+                <a class="dropdown-item" href="/logout/"> Logout </a>
+                <a class="dropdown-item" href="/dashboard/">Feedback</a>
+                {% else %}
+                <a class="dropdown-item" href="/register/">Register</a>
+                <a class="dropdown-item" href="/login/">Login</a>
+                <a class="dropdown-item" href="http://127.0.0.1:8000/admin/login/?next=/admin/">Admin</a>
+                {% endif %}
+            {% else %}
+            <a class="dropdown-item" href="/gen_pdf/">Products</a>
+            <a class="dropdown-item" href="/gen1_pdf/">Cart</a>
+              <a class="dropdown-item" href="/gen1_pdf/">Users</a>
+            <a class="dropdown-item" href="http://127.0.0.1:8000/admin/logout/">Logout</a>
+
+            {% endif %}
             </div>
           </li>
           <li>
