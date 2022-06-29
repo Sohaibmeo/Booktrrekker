@@ -38,5 +38,6 @@ urlpatterns=[
     path('dashboard/',views.dashboard,name="dashboard"),
     # customer  product upload starts here
     path("customer-product/add/", CustomerProductCreateView.as_view(),name="customerproductcreate"),
-
+    path("gen_pdf/", views.gen_pdf, name="gen_pdf"),
+    path("gen1_pdf/", views.gen1_pdf, name="gen1_pdf"),
 ]
