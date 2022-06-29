@@ -10,7 +10,7 @@ import re
 class CheckoutForm(forms.ModelForm):
     ordered_by=forms.CharField(widget=forms.TextInput(attrs={
         # "class":"form-control",
-        'size': '20',
+        # 'size': '20',
         'style': 'font-size: medium',
         'style':'width :40px',
         'style':  'height: 30px',
@@ -18,32 +18,31 @@ class CheckoutForm(forms.ModelForm):
         }))
     shipping_address=forms.CharField(widget=forms.TextInput(attrs={
         # "class":"form-control",
-        'size': '20',
+        # 'size': '20',
         'style': 'font-size: medium',
         'style':'width :40px',
         'style':  'height: 30px',
         
         }))
-    mobile=forms.IntegerField(widget=forms.TextInput(attrs={
+    mobile=forms.CharField(widget=forms.TextInput(attrs={
         # "class":"form-control",
-         'size': '20',
+        #  'size': '20',
         'style': 'font-size: medium',
         'style':'width :40px',
         'style':  'height: 30px',
         
         }))
-    mobile = forms.CharField(max_length=11,min_length=11 ,validators=[RegexValidator(
-        r'^(\+92|03|92)[0-9]{9}$', message="Enter a valid mobile#")])
-     
-    email=forms.EmailField(widget=forms.EmailInput(attrs={
+    phone = forms.CharField(validators=[RegexValidator(
+        r'^(\+923|03|923)+[0-9]{9}$', message="Enter a valid mobile#")])
+    email=forms.CharField(widget=forms.TextInput(attrs={
         # "class":"form-control",
-         'size': '20',
+        #  'size': '20',
         'style': 'font-size: medium',
         'style':'width :40px',
         'style':  'height: 30px',
         
         }))
-    email= forms.CharField(max_length=30, validators=[RegexValidator(
+    email= forms.CharField(max_length=30,validators=[RegexValidator(
         r'^[a-z0-9]+[0-9]+@gmail.com+$', message="Enter a valid gmail id")])
     class Meta:
         model=Order
@@ -67,7 +66,7 @@ class CheckoutForm(forms.ModelForm):
         'style':  'height: 30px',
         
         }))
-    mobile=forms.IntegerField(widget=forms.TextInput(attrs={
+    mobile=forms.CharField(widget=forms.TextInput(attrs={
         # "class":"form-control",
          'size': '20',
         'style': 'font-size: medium',
@@ -75,10 +74,10 @@ class CheckoutForm(forms.ModelForm):
         'style':  'height: 30px',
         
         }))
-    mobile = forms.CharField(max_length=11,min_length=11 ,validators=[RegexValidator(
-        r'^(\+92|03|92)+[0-9]{9}$', message="Enter a valid mobile#")])
+    mobile = forms.CharField(validators=[RegexValidator(
+        r'^(\+923|03|923)+[0-9]{9}$', message="Enter a valid mobile#")])
      
-    email=forms.EmailField(widget=forms.EmailInput(attrs={
+    email=forms.CharField(widget=forms.TextInput(attrs={
         # "class":"form-control",
          'size': '20',
         'style': 'font-size: medium',
@@ -86,7 +85,7 @@ class CheckoutForm(forms.ModelForm):
         'style':  'height: 30px',
         "multiple":True
         }))
-    email= forms.CharField(max_length=30, validators=[RegexValidator(
+    email= forms.CharField( max_length=30,validators=[RegexValidator(
         r'^[a-z0-9]+[0-9]+@gmail.com+$', message="Enter a valid gmail id")])
     class Meta:
         model=Order
@@ -106,7 +105,7 @@ class CustomerRegistrationForm(forms.ModelForm):
         # 'pattern':'[[0-9a-zA-Z]+',
         # "multiple":True
         }))
-    username = forms.CharField(max_length=20, validators=[RegexValidator(
+    username = forms.CharField(max_length=15, validators=[RegexValidator(
         r'^(?=.{8,20}$)(?:[a-zA-Z\d]+(?:(?:\.|-|_)[a-zA-Z\d])*)+[a-zA-Z0-9]+[0-9]+$', message="Enter a valid username")])
     password=forms.CharField(widget=forms.PasswordInput(attrs={
         # "class":"form-control",
@@ -123,7 +122,7 @@ class CustomerRegistrationForm(forms.ModelForm):
 
     password= forms.CharField(min_length=8, validators=[RegexValidator(
         r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,18}$', message="Password must contain 1:Capital Letter,Special Character,1:Number & Length Should be 8-18")])
-    email=forms.CharField(widget=forms.EmailInput(attrs={
+    email=forms.CharField(widget=forms.TextInput(attrs={
         # "class":"form-control",
         # "multiple":True,
         'autofocus': 'autofocus',
@@ -251,6 +250,7 @@ class ProductForm(forms.ModelForm):
            }),  
            "slug":forms.TextInput(attrs={
                  "class":"form-control",
+                 'placeholder':'example-example'
                 # 'autofocus': 'autofocus',
                 #     'autocomplete': 'off',
                 #      'size': '20',
@@ -258,7 +258,8 @@ class ProductForm(forms.ModelForm):
                 #  "placeholder":"Enter unique slug here!!!"
            }),
            "category":forms.Select(attrs={
-                "class":"form-control"
+                "class":"form-control",
+                'placeholder':'select category'
            }),
            "image":forms.ClearableFileInput(attrs={
                 "class":"form-control"
@@ -284,7 +285,7 @@ class ProductForm(forms.ModelForm):
         }
 
 class PasswordForgotForm(forms.Form):
-    email=forms.CharField(widget=forms.EmailInput(attrs={
+    email=forms.CharField(widget=forms.TextInput(attrs={
         # "class":"form-control",
         'autofocus': 'autofocus',
         'autocomplete': 'off',
@@ -353,3 +354,61 @@ class AddRatingForm(forms.ModelForm):
         widgets={
             'rating':forms.TextInput(attrs={'type':'range','step':'1','min':'0','max':'5','class':{'custom-range','border-0'}})
         }
+
+class ContactUsForm(forms.ModelForm):
+
+    name=forms.CharField(widget=forms.TextInput(attrs={
+        # "class":"form-control",
+        'size': '20',
+        'style': 'font-size: medium',
+        'style':'width :40px',
+        'style':  'height: 30px',
+        
+        }))    
+    email=forms.CharField(widget=forms.TextInput(attrs={
+        'style': 'font-size: medium',
+        'style':'width :40px',
+        'style':  'height: 30px',
+        "multiple":True
+        }))
+    email= forms.CharField(validators=[RegexValidator(
+        r'^[a-z0-9]+[0-9]+@gmail.com+$', message="Enter a valid gmail id")])    
+    
+    phone=forms.CharField(widget=forms.TextInput(attrs={
+        # "class":"form-control",
+         
+        'style': 'font-size: medium',
+        'style':'width :40px',
+        'style':  'height: 30px',
+        
+        }))
+    phone = forms.CharField(validators=[RegexValidator(
+        r'^(\+923|03|923)+[0-9]{9}$', message="Enter a valid mobile#")])
+    desc=forms.CharField(widget=forms.TextInput(attrs={
+        # "class":"form-control",
+        'size': '20',
+        'style': 'font-size: medium',
+        'style':'width :40px',
+        'style':  'height: 30px',
+        
+        }))
+     
+    
+    class Meta:
+        model=Contact
+        fields=['name','email','phone','desc']
+
+    def clean_name(self):
+        name= self.cleaned_data.get("name")
+        return name
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        return email
+
+    def clean_phone(self):
+        phone = self.cleaned_data.get("phone")
+        return phone
+    def clean_desc(self):
+        desc = self.cleaned_data.get("desc")
+        return desc
+

@@ -28,8 +28,8 @@ from django.forms import CharField
 
 class Contact(models.Model):
     name = models.CharField(max_length=20,null=False,blank=False)
-    email = models.CharField(max_length=20,null=False,blank=False)
-    phone = models.CharField(max_length=20,null=False,blank=False)
+    email = models.CharField(max_length=30,null=False,blank=False)
+    phone = models.CharField(max_length=13,null=False,blank=False)
     desc = models.CharField(max_length=500,null=False,blank=False)
 
     def __str__(self):
@@ -123,8 +123,8 @@ class Order(models.Model):
      cart=models.OneToOneField(Cart, on_delete=models.CASCADE)
      ordered_by=models.CharField(max_length=200,null=False,blank=False)
      shipping_address=models.CharField(max_length=300,null=False,blank=False)
-     mobile=models.CharField(max_length=11)
-     email=models.CharField(max_length=100,null=False,blank=False)
+     mobile=models.CharField(max_length=13,null=False,blank=False)
+     email=models.CharField(max_length=30,null=False,blank=False)
      subtotal=models.PositiveBigIntegerField(default=0)
      total=models.PositiveBigIntegerField(default=0)
      order_status=models.CharField(max_length=200,choices=ORDER_STATUS)
