@@ -39,8 +39,4 @@ urlpatterns=[
     # customer  product upload starts here
     path("customer-product/add/", CustomerProductCreateView.as_view(),name="customerproductcreate"),
 
-    # admin side
-    # path("admin-product/list/",AdminProductListView.as_view(),name="adminproductlist"),
-    # path("admin-product/add/",AdminProductCreateView.as_view(),name="adminproductcreate"),
-
 ]

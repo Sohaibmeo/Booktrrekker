@@ -14,7 +14,7 @@ class CheckoutForm(forms.ModelForm):
         'style': 'font-size: medium',
         'style':'width :40px',
         'style':  'height: 30px',
-        "multiple":True,
+        
         }))
     shipping_address=forms.CharField(widget=forms.TextInput(attrs={
         # "class":"form-control",
@@ -22,7 +22,7 @@ class CheckoutForm(forms.ModelForm):
         'style': 'font-size: medium',
         'style':'width :40px',
         'style':  'height: 30px',
-        "multiple":True
+        
         }))
     mobile=forms.IntegerField(widget=forms.TextInput(attrs={
         # "class":"form-control",
@@ -30,10 +30,10 @@ class CheckoutForm(forms.ModelForm):
         'style': 'font-size: medium',
         'style':'width :40px',
         'style':  'height: 30px',
-        "multiple":True
+        
         }))
     mobile = forms.CharField(max_length=11,min_length=11 ,validators=[RegexValidator(
-        r'^(\+92|03|92)[0-9]{10}$', message="Enter a valid mobile#")])
+        r'^(\+92|03|92)[0-9]{9}$', message="Enter a valid mobile#")])
      
     email=forms.EmailField(widget=forms.EmailInput(attrs={
         # "class":"form-control",
@@ -41,7 +41,7 @@ class CheckoutForm(forms.ModelForm):
         'style': 'font-size: medium',
         'style':'width :40px',
         'style':  'height: 30px',
-        "multiple":True
+        
         }))
     email= forms.CharField(max_length=30, validators=[RegexValidator(
         r'^[a-z0-9]+[0-9]+@gmail.com+$', message="Enter a valid gmail id")])
@@ -57,15 +57,15 @@ class CheckoutForm(forms.ModelForm):
         'style': 'font-size: medium',
         'style':'width :40px',
         'style':  'height: 30px',
-        "multiple":True,
-        }))
+        
+        }))    
     shipping_address=forms.CharField(widget=forms.TextInput(attrs={
         # "class":"form-control",
         'size': '20',
         'style': 'font-size: medium',
         'style':'width :40px',
         'style':  'height: 30px',
-        "multiple":True
+        
         }))
     mobile=forms.IntegerField(widget=forms.TextInput(attrs={
         # "class":"form-control",
@@ -73,7 +73,7 @@ class CheckoutForm(forms.ModelForm):
         'style': 'font-size: medium',
         'style':'width :40px',
         'style':  'height: 30px',
-        "multiple":True
+        
         }))
     mobile = forms.CharField(max_length=11,min_length=11 ,validators=[RegexValidator(
         r'^(\+92|03|92)+[0-9]{9}$', message="Enter a valid mobile#")])
@@ -234,15 +234,28 @@ class ProductForm(forms.ModelForm):
         widgets={
              "title":forms.TextInput(attrs={
                  "class":"form-control",
-                 "placeholder":"Enter book name here!!!"
+                    # 'autofocus': 'autofocus',
+                    # 'autocomplete': 'off',
+                    #  'size': '20',
+                    #  'style': 'font-size: large',
+                    # "placeholder":"Enter book name here!!!"
            }),
            "author":forms.TextInput(attrs={
                  "class":"form-control",
-                 "placeholder":"Author Name"
+                    # 'autofocus': 'autofocus',
+                    # 'autocomplete': 'off',
+                    #  'size': '20',
+                    #  'style': 'font-size: large',
+                    # "placeholder":"Author Name!!!"
+                 
            }),  
            "slug":forms.TextInput(attrs={
                  "class":"form-control",
-                 "placeholder":"Enter unique slug here!!!"
+                # 'autofocus': 'autofocus',
+                #     'autocomplete': 'off',
+                #      'size': '20',
+                #      'style': 'font-size: large',
+                #  "placeholder":"Enter unique slug here!!!"
            }),
            "category":forms.Select(attrs={
                 "class":"form-control"

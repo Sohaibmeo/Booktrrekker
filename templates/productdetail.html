@@ -31,6 +31,7 @@
         {% if product.quantity > 0 %}
         <a href="{% url 'ecomapp:addtocart' product.id  %}" class="btn btn-light my-3">Add To Cart</a>
         <h5 >Total Stock:{{product.quantity}}</h5>
+        <h5>Book Uploaded By:{{product.user}}</h5>
         <hr>
         {% else %}
         <b class="link-danger my-2" ><p>Out of Stock</p></b>

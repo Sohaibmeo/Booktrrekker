@@ -12,7 +12,7 @@
             <hr>
             <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{form.as_p}}
+               <b style="color: black;"> {{form.as_p}}</b>
                 <button class="btn btn-danger">Upload Book</button>
             </form>
         </div>
