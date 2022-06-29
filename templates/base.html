@@ -171,17 +171,23 @@ li:last-child {
             >
             <i class="fa fa-fw fa-user"></i>   MyAccount
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              {% if request.user.customer %}
-              <a class="dropdown-item " href="/profile/"> My Profile </a>
-              <a class="dropdown-item" href="/logout/"> Logout </a>
-              <a class="dropdown-item" href="/dashboard/">Feedback</a>
-              <a class="dropdown-item" href="/gen_pdf/">Products</a>
-              <a class="dropdown-item" href="/gen1_pdf/">Cart</a>
-              {% else %}
-              <a class="dropdown-item" href="/register/">Register</a>
-              <a class="dropdown-item" href="/login/">Login</a>
-              {% endif %}
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% if request.user.username != 'sohaib'   %}
+
+                {% if request.user.customer %}
+                <a class="dropdown-item " href="/profile/"> My Profile </a>
+                <a class="dropdown-item" href="/logout/"> Logout </a>
+                <a class="dropdown-item" href="/dashboard/">Feedback</a>
+                {% else %}
+                <a class="dropdown-item" href="/register/">Register</a>
+                <a class="dropdown-item" href="/login/">Login</a>
+                {% endif %}
+            {% else %}
+            <a class="dropdown-item" href="/gen_pdf/">Products</a>
+            <a class="dropdown-item" href="/gen1_pdf/">Cart</a>
+            <a class="dropdown-item" href="http://127.0.0.1:8000/admin/logout/">Logout</a>
+
+            {% endif %}
             </div>
           </li>
           <li>
