@@ -500,6 +500,7 @@ class CustomerLoginView(FormView):
         pword=form.cleaned_data.get("password")
         usr =authenticate(username=uname,password=pword)
         if usr is not None and Customer.objects.filter(user=usr):
+            self.request.session.set_expiry(180)
             login(self.request,usr)
         else:
             # you can also use self.template_name in place of customerlogin.html
