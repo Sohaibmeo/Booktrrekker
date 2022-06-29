@@ -705,8 +705,8 @@ class CustomerProductCreateView(LoginRequiredMixin,CreateView):
 
 # Feedback protion
 def generateRecommendation(request):
-    #product/movie
-    movie=Product.objects.all()
+    #product/books
+    books=Product.objects.all()
     rating=Rating.objects.all()
     x=[]
     y=[]
@@ -715,18 +715,18 @@ def generateRecommendation(request):
     C=[]
     D=[]
     #Books Data Frames
-    for item in movie:
+    for item in books:
         x=[item.id,item.title,item.image.url,item.category,item.slug]
 
         y+=[x]
-    movies_df = pd.DataFrame(y,columns=['pro_id','title','image','category','slug'])
-    print("Movies DataFrame")
-    print(movies_df)
-    print(movies_df.dtypes)
+    bookss_df = pd.DataFrame(y,columns=['pro_id','title','image','category','slug'])
+    print("bookss DataFrame")
+    print(bookss_df)
+    print(bookss_df.dtypes)
     #Rating Data Frames
     print(rating)
     for item in rating:
-        A=[item.user.id,item.movie.id,item.rating]
+        A=[item.user.id,item.books.id,item.rating]
         B+=[A]
     rating_df=pd.DataFrame(B,columns=['userId','pro_id','rating'])
     print("Rating data Frame")
@@ -738,31 +738,31 @@ def generateRecommendation(request):
     if request.user.is_authenticated:
         userid=request.user.id
         #select related is join statement in django.It looks for foreign key and join the table
-        userInput=Rating.objects.select_related('movie').filter(user=userid)
+        userInput=Rating.objects.select_related('books').filter(user=userid)
         if userInput.count()== 0:
             recommenderQuery=None
             userInput=None
         else:
             for item in userInput:
-                C=[item.movie.title,item.rating]
+                C=[item.books.title,item.rating]
                 D+=[C]
-            inputMovies=pd.DataFrame(D,columns=['title','rating'])
-            print("Watched Movies by user dataframe")
-            inputMovies['rating']=inputMovies['rating'].astype(str).astype(np.float)
-            print(inputMovies.dtypes)
-            #Filtering out the movies by title
-            inputId = movies_df[movies_df['title'].isin(inputMovies['title'].tolist())]
+            inputbookss=pd.DataFrame(D,columns=['title','rating'])
+            print("Watched bookss by user dataframe")
+            inputbookss['rating']=inputbookss['rating'].astype(str).astype(np.float)
+            print(inputbookss.dtypes)
+            #Filtering out the bookss by title
+            inputId = bookss_df[bookss_df['title'].isin(inputbookss['title'].tolist())]
             #Then merging it so we can get the pro_id. It's implicitly merging it by title.
-            inputMovies = pd.merge(inputId, inputMovies)
+            inputbookss = pd.merge(inputId, inputbookss)
             # #Dropping information we won't use from the input dataframe
-            # inputMovies = inputMovies.drop('year', 1)
+            # inputbookss = inputbookss.drop('year', 1)
             #Final input dataframe
-            #If a movie you added in above isn't here, then it might not be in the original
+            #If a books you added in above isn't here, then it might not be in the original
             #dataframe or it might spelled differently, please check capitalisation.
-            print(inputMovies)
+            print(inputbookss)
 
-            #Filtering out users that have watched movies that the input has watched and storing it
-            userSubset = rating_df[rating_df['pro_id'].isin(inputMovies['pro_id'].tolist())]
+            #Filtering out users that have watched bookss that the input has watched and storing it
+            userSubset = rating_df[rating_df['pro_id'].isin(inputbookss['pro_id'].tolist())]
             print("is this it")
             print(userSubset.head())
 
@@ -771,7 +771,7 @@ def generateRecommendation(request):
 
             #print(userSubsetGroup.get_group(7))
 
-            #Sorting it so users with movie most in common with the input will have priority
+            #Sorting it so users with books most in common with the input will have priority
             userSubsetGroup = sorted(userSubsetGroup,  key=lambda x: len(x[1]), reverse=True)
             print("what happened here fam")
             print(userSubsetGroup[0:])
@@ -787,11 +787,11 @@ def generateRecommendation(request):
             for name, group in userSubsetGroup:
             #Let's start by sorting the input and current user group so the values aren't mixed up later on
                 group = group.sort_values(by='pro_id')
-                inputMovies = inputMovies.sort_values(by='pro_id')
+                inputbookss = inputbookss.sort_values(by='pro_id')
                 #Get the N for the formula
                 nRatings = len(group)
-                #Get the review scores for the movies that they both have in common
-                temp_df = inputMovies[inputMovies['pro_id'].isin(group['pro_id'].tolist())]
+                #Get the review scores for the bookss that they both have in common
+                temp_df = inputbookss[inputbookss['pro_id'].isin(group['pro_id'].tolist())]
                 #And then store them in a temporary buffer variable in a list format to facilitate future calculations
                 tempRatingList = temp_df['rating'].tolist()
                 #Let's also put the current user group reviews in a list format
@@ -841,7 +841,7 @@ def generateRecommendation(request):
             recommendation_df.head()
 
             recommendation_df = recommendation_df.sort_values(by='weighted average recommendation score', ascending=False)
-            recommender=movies_df.loc[movies_df['pro_id'].isin(recommendation_df.head(8)['pro_id'].tolist())]
+            recommender=bookss_df.loc[bookss_df['pro_id'].isin(recommendation_df.head(8)['pro_id'].tolist())]
             print(recommender)
             return recommender.to_dict('records')
 
@@ -881,18 +881,18 @@ class HomeView(EcomMixin,TemplateView):
 def dashboard(request):
 
     if request.user.is_authenticated:
-        allMovies=[]
-        movie=Product.objects.all()
-        allMovies.append([movie, range(0, 3),4])
-        params={'allMovies':allMovies }
+        allbookss=[]
+        books=Product.objects.all()
+        allbookss.append([books, range(0, 3),4])
+        params={'allbookss':allbookss }
         params['user']=request.user
         if request.method=='POST':
-            pro_id=request.POST.get('movieid')
+            pro_id=request.POST.get('booksid')
             userid=request.POST.get('userid')
 
             print("lets see this ")
             print(pro_id)
-            movie=Product.objects.all()
+            books=Product.objects.all()
             u=User.objects.get(pk=userid)
             m=Product.objects.get(pk=pro_id)
 
@@ -901,11 +901,11 @@ def dashboard(request):
             params['rform']=rfm
             if rfm.is_valid():
                 rat=rfm.cleaned_data['rating']
-                count=Rating.objects.filter(user=u,movie=m).count()
+                count=Rating.objects.filter(user=u,books=m).count()
                 if(count>0):
                     messages.warning(request,'You have already submitted your review!!')
                     return render(request,'dashboard.html',params)
-                action=Rating(user=u,movie=m,rating=rat)
+                action=Rating(user=u,books=m,rating=rat)
                 action.save()
                 messages.success(request,'You have submitted'+' '+rat+' '+"star")
             return render(request,'dashboard.html',params)
@@ -913,7 +913,7 @@ def dashboard(request):
             #print(request.user.id)
             rfm=AddRatingForm()
             params['rform']=rfm
-            movie=Product.objects.all()
+            books=Product.objects.all()
             return render(request,'dashboard.html',params)
     else:
         return HttpResponseRedirect('/login/')
