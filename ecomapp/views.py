@@ -80,7 +80,9 @@ class AllProductsView(EcomMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
           context=super().get_context_data(**kwargs)
-          context["allcategories"]=Category.objects.all()
+    
+          allcategories=Category.objects.all()
+          context['allcategories']=allcategories
           return context
 
 class ProductDetailView(EcomMixin,TemplateView):
@@ -750,14 +752,27 @@ class HomeView(EcomMixin,TemplateView):
 
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
-        all_products=Product.objects.all().order_by("-id")
+        if self.request.user.is_authenticated:
+
+            all_products=Product.objects.filter(~Q(user=self.request.user.email)).order_by("-id")
         # how many number of items to be shown on the home page
-        paginator=Paginator(all_products,4)
-        page_number=self.request.GET.get('page')
-        product_list=paginator.get_page(page_number)
-        context['product_list']=product_list
-        context['all_products']=all_products
-        context['recommended']=generateRecommendation(self.request)
+            paginator=Paginator(all_products,4)
+            page_number=self.request.GET.get('page')
+            product_list=paginator.get_page(page_number)
+            context['product_list']=product_list
+            context['all_products']=all_products
+            context['recommended']=generateRecommendation(self.request)
+        else:
+            all_products=Product.objects.all().order_by("-id")
+        # how many number of items to be shown on the home page
+            paginator=Paginator(all_products,4)
+            page_number=self.request.GET.get('page')
+            product_list=paginator.get_page(page_number)
+            context['product_list']=product_list
+            context['all_products']=all_products
+            context['recommended']=generateRecommendation(self.request)
+
+
         return context
 
 

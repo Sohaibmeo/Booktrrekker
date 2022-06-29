@@ -49,7 +49,7 @@ class Customer(models.Model):
 
 class Category(models.Model):
     title=models.CharField(max_length=200)
-    slug=models.SlugField(unique=True)
+    slug=models.SlugField(unique=True,blank=False,null=False),
 
 
     def __str__(self):
