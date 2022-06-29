@@ -42,8 +42,8 @@ class CheckoutForm(forms.ModelForm):
         'style':  'height: 30px',
 
         }))
-    email= forms.CharField(max_length=30,validators=[RegexValidator(
-        r'^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@gmail.com+$', message="Enter a valid gmail id")])
+    email= forms.CharField(min_length=16,max_length=30,validators=[RegexValidator(
+        r'^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@gmail.com$', message="Enter a valid gmail id")])
     class Meta:
         model=Order
         fields=["ordered_by","shipping_address","mobile","email"]
@@ -85,8 +85,8 @@ class CheckoutForm(forms.ModelForm):
         'style':  'height: 30px',
         "multiple":True
         }))
-    email= forms.CharField( max_length=30,validators=[RegexValidator(
-        r'^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@gmail.com+$', message="Enter a valid gmail id")])
+    email= forms.CharField(min_length=16, max_length=30,validators=[RegexValidator(
+        r'^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@gmail.com$', message="Enter a valid gmail id")])
     class Meta:
         model=Order
         fields=["ordered_by","shipping_address","mobile","email"]
@@ -133,8 +133,8 @@ class CustomerRegistrationForm(forms.ModelForm):
         'style': 'font-size: medium'
         }))
 
-    email= forms.CharField(max_length=30, validators=[RegexValidator(
-        r'^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@gmail.com+$', message="Enter a valid gmail id")])
+    email= forms.CharField(min_length=16,max_length=30, validators=[RegexValidator(
+        r'^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@gmail.com$', message="Enter a valid gmail id")])
 
     address=forms.CharField(widget=forms.TextInput(attrs={
         # "class":"form-control",
@@ -371,8 +371,8 @@ class ContactUsForm(forms.ModelForm):
         'style':  'height: 30px',
         "multiple":True
         }))
-    email= forms.CharField(validators=[RegexValidator(
-        r'^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@gmail.com+$', message="Enter a valid gmail id")])
+    email= forms.CharField(min_length=16,validators=[RegexValidator(
+        r'^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@gmail.com$', message="Enter a valid gmail id")])
 
     phone=forms.CharField(widget=forms.TextInput(attrs={
         # "class":"form-control",
