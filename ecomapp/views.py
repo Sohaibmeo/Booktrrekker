@@ -7,7 +7,7 @@ from socket import fromshare
 from django.core.paginator import Paginator
 from django import forms
 from math import prod
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,FileResponse,HttpResponse
 from django.contrib import messages
 from pipes import Template
 from re import template
@@ -39,6 +39,106 @@ from django.conf import settings
 import numpy as np
 import pandas as pd
 
+
+
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+from reportlab.lib.pagesizes import letter
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
+
+
+
+def gen_pdf(request):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=hello.pdf'
+    c = canvas.Canvas(response)
+    textob = c.beginText()
+
+    c.setFillColorRGB(0,0,1) # font colour
+    c.setFontSize(16)
+    c.drawString(250, 800, "The Book Trekker")
+    c.setFontSize(11)
+    c.drawString(10, 780, "Products Report")
+    c.setFillColorRGB(0,0,0) # font colour
+    textob.setTextOrigin(10, 740)
+    textob.setFont("Helvetica", 11)
+    # c.drawString(100, 100, "Hello world.")
+    # lines = [
+    #         "oo chorya ki krna paya"
+    #     ]
+    venues = Product.objects.all()
+    lines = []
+    for venue in venues:
+        lines.append(venue.title)
+        lines.append(str(venue.category))
+        lines.append(venue.description)
+        lines.append(venue.author)
+        # lines.append(venue.return_policy)
+        lines.append(str(venue.marked_price))
+        lines.append(str(venue.selling_price))
+        lines.append(str(venue.quantity))
+        lines.append(str(venue.slug ))
+
+
+
+    for line in lines:
+        textob.textLine(line)
+
+
+        # Finishing
+        c.drawText(textob)
+        # c.showPage()
+        # c.save
+
+
+    c.showPage()
+    c.save()
+    return response
+# Cart Report
+def gen1_pdf(request):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=hello.pdf'
+    c = canvas.Canvas(response)
+    textob = c.beginText()
+    c.setFillColorRGB(0,0,1) # font colour
+    c.setFontSize(16)
+    c.drawString(250, 800, "The Book Trekker")
+    c.setFontSize(11)
+    c.drawString(10, 780, "Your Cart Report")
+    c.setFillColorRGB(0,0,0) # font colour
+    textob.setTextOrigin(10, 740)
+    textob.setFont("Helvetica", 11)
+    textob.setFillColorRGB(0,0,0)
+    textob.setFont("Helvetica", 11)
+    # c.drawString(100, 100, "Hello world.")
+    # lines = [
+    #         "oo chorya ki krna paya"
+    #     ]
+    venues = Customer.objects.all()
+    lines = []
+    for venue in venues:
+        lines.extend(["Name: ", str(venue.user)])
+        lines.append(str(venue.full_name))
+        lines.append(str(venue.address))
+        lines.append("\n")
+
+
+    for line in lines:
+        textob.textLine(line)
+
+
+        # Finishing
+        c.drawText(textob)
+        # c.showPage()
+        # c.save
+
+
+    c.showPage()
+    c.save()
+    return response
 
 @csrf_exempt
 def stripe_config(request):
@@ -80,7 +180,7 @@ class AllProductsView(EcomMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
           context=super().get_context_data(**kwargs)
-    
+
           allcategories=Category.objects.all()
           context['allcategories']=allcategories
           return context
@@ -222,7 +322,7 @@ class RemoveProductView(EcomMixin,TemplateView):
         prod=Product.objects.get(id=prod_id)
         prod.delete()
         print("hello")
-        return redirect("ecomapp:customerprofile")    
+        return redirect("ecomapp:customerprofile")
 
 
 class CheckoutView(EcomMixin,CreateView):
