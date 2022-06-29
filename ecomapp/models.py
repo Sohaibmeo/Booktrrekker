@@ -140,5 +140,3 @@ class Rating(models.Model):
     movie=models.ForeignKey(Product,on_delete=models.CASCADE,default=None)
     rating=models.CharField(max_length=70)
     rated_date=models.DateTimeField(auto_now_add=True)
-
-

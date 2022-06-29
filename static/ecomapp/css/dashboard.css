@@ -16,7 +16,9 @@
   position: relative;
   display: flex;
 }
-
+.carousel-control-next, .carousel-control-prev {
+    position: fixed !important;
+  }
 .carousel-item.active{
   display: flex ;
 }
