@@ -13,3 +13,7 @@ input{
   text-decoration: none;
   color: aquamarine;
 }
+.errorlist {
+    color: white !important;
+    background: #c51244 !important;
+}

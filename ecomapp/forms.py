@@ -154,6 +154,8 @@ class CustomerRegistrationForm(forms.ModelForm):
         'size': '20',
         'style': 'font-size: medium',
         }))
+    full_name= forms.CharField(min_length=7,max_length=30, validators=[RegexValidator(
+        r'^([A-Za-z ])*$', message="Enter a valid full name")])
     class Meta:
         model=Customer
         fields=["username","password","email", "full_name","address"]
