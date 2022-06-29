@@ -485,7 +485,7 @@ class ContactView(EcomMixin,FormView):
         return super().form_valid(form)
         # return redirect("/all-products/")
 
-        
+
 
 
 # mydashboard only to show the books that are already bought
@@ -705,7 +705,7 @@ class CustomerProductCreateView(LoginRequiredMixin,CreateView):
 
 # Feedback protion
 def generateRecommendation(request):
-    #myshit
+    #product/movie
     movie=Product.objects.all()
     rating=Rating.objects.all()
     x=[]
@@ -750,7 +750,6 @@ def generateRecommendation(request):
             print("Watched Movies by user dataframe")
             inputMovies['rating']=inputMovies['rating'].astype(str).astype(np.float)
             print(inputMovies.dtypes)
-
             #Filtering out the movies by title
             inputId = movies_df[movies_df['title'].isin(inputMovies['title'].tolist())]
             #Then merging it so we can get the pro_id. It's implicitly merging it by title.
@@ -801,7 +800,6 @@ def generateRecommendation(request):
                 Sxx = sum([i**2 for i in tempRatingList]) - pow(sum(tempRatingList),2)/float(nRatings)
                 Syy = sum([i**2 for i in tempGroupList]) - pow(sum(tempGroupList),2)/float(nRatings)
                 Sxy = sum( i*j for i, j in zip(tempRatingList, tempGroupList)) - sum(tempRatingList)*sum(tempGroupList)/float(nRatings)
-
                 #If the denominator is different than zero, then divide, else, 0 correlation.
                 if Sxx != 0 and Syy != 0:
                     pearsonCorrelationDict[name] = Sxy/math.sqrt(Sxx*Syy)
