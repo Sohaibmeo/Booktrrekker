@@ -185,10 +185,12 @@ li:last-child {
                 {% else %}
                 <a class="dropdown-item" href="/register/">Register</a>
                 <a class="dropdown-item" href="/login/">Login</a>
+                <a class="dropdown-item" href="http://127.0.0.1:8000/admin/login/?next=/admin/">Admin</a>
                 {% endif %}
             {% else %}
             <a class="dropdown-item" href="/gen_pdf/">Products</a>
             <a class="dropdown-item" href="/gen1_pdf/">Cart</a>
+              <a class="dropdown-item" href="/gen1_pdf/">Users</a>
             <a class="dropdown-item" href="http://127.0.0.1:8000/admin/logout/">Logout</a>
 
             {% endif %}

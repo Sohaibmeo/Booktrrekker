@@ -53,7 +53,7 @@ from xhtml2pdf import pisa
 
 def gen_pdf(request):
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=hello.pdf'
+    response['Content-Disposition'] = 'attachment; filename=products.pdf'
     c = canvas.Canvas(response)
     textob = c.beginText()
 
@@ -100,14 +100,14 @@ def gen_pdf(request):
 # Cart Report
 def gen1_pdf(request):
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=hello.pdf'
+    response['Content-Disposition'] = 'attachment; filename=users.pdf'
     c = canvas.Canvas(response)
     textob = c.beginText()
     c.setFillColorRGB(0,0,1) # font colour
     c.setFontSize(16)
     c.drawString(250, 800, "The Book Trekker")
     c.setFontSize(11)
-    c.drawString(10, 780, "Your Cart Report")
+    c.drawString(10, 780, "Users Report")
     c.setFillColorRGB(0,0,0) # font colour
     textob.setTextOrigin(10, 740)
     textob.setFont("Helvetica", 11)
@@ -120,10 +120,60 @@ def gen1_pdf(request):
     venues = Customer.objects.all()
     lines = []
     for venue in venues:
+
+        lines.extend(["User Name: ", str(venue.full_name)])
         lines.extend(["Name: ", str(venue.user)])
-        lines.append(str(venue.full_name))
-        lines.append(str(venue.address))
+        lines.extend(["Address: ", str(venue.address)])
         lines.append("\n")
+
+
+    for line in lines:
+        textob.textLine(line)
+
+
+        # Finishing
+        c.drawText(textob)
+        # c.showPage()
+        # c.save
+
+
+    c.showPage()
+    c.save()
+    return response
+
+# Cart Report
+def gen2_pdf(request):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=carts.pdf'
+    c = canvas.Canvas(response)
+    textob = c.beginText()
+    c.setFillColorRGB(0,0,1) # font colour
+    c.setFontSize(16)
+    c.drawString(250, 800, "The Book Trekker")
+    c.setFontSize(11)
+    c.drawString(10, 780, "Carts Report")
+    c.setFillColorRGB(0,0,0) # font colour
+    textob.setTextOrigin(10, 740)
+    textob.setFont("Helvetica", 11)
+    textob.setFillColorRGB(0,0,0)
+    textob.setFont("Helvetica", 11)
+    # c.drawString(100, 100, "Hello world.")
+    # lines = [
+    #         "oo chorya ki krna paya"
+    #     ]
+    venues = Cart.objects.all()
+    lines = []
+    for venue in venues:
+        for ven in venue.cartproduct_set.all():
+
+            lines.extend(["Customer: ", str(venue.customer)])
+            lines.extend(["Total: ", str(venue.total)])
+            lines.extend(["Created At: ", str(venue.created_at)])
+            lines.extend(["Products: ", str(ven.product)])
+            lines.extend(["Category: ", str(ven.product.category)])
+            # lines.extend(["Quantity: ", str(venue.quantity)])
+            # lines.extend(["Subtotal: ", str(venue.subtotal)])
+            lines.append("\n")
 
 
     for line in lines:
