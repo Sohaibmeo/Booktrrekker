@@ -16,6 +16,8 @@ class CheckoutForm(forms.ModelForm):
         'style':  'height: 30px',
 
         }))
+    ordered_by= forms.CharField(min_length=7,max_length=30, validators=[RegexValidator(
+        r'^([A-Za-z ])*$', message="Enter a valid full name")])
     shipping_address=forms.CharField(widget=forms.TextInput(attrs={
         # "class":"form-control",
         # 'size': '20',
@@ -86,7 +88,7 @@ class CheckoutForm(forms.ModelForm):
         "multiple":True
         }))
     email= forms.CharField(min_length=16, max_length=30,validators=[RegexValidator(
-        r'^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@gmail.com$', message="Enter a valid gmail id")])
+        r'^([A-Za-z]+[.-_])+[A-Za-z0-9]+@gmail.com$', message="Enter a valid gmail id")])
     class Meta:
         model=Order
         fields=["ordered_by","shipping_address","mobile","email"]
@@ -134,7 +136,7 @@ class CustomerRegistrationForm(forms.ModelForm):
         }))
 
     email= forms.CharField(min_length=16,max_length=30, validators=[RegexValidator(
-        r'^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@gmail.com$', message="Enter a valid gmail id")])
+        r'^([A-Za-z]+[.-_])+[A-Za-z0-9]+@gmail.com$', message="Enter a valid gmail id")])
 
     address=forms.CharField(widget=forms.TextInput(attrs={
         # "class":"form-control",
