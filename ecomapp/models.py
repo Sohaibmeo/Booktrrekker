@@ -67,7 +67,7 @@ class Product(models.Model):
     description=models.TextField(null=False,blank=False)
     view_count=models.PositiveIntegerField(default=0)
     quantity=models.PositiveBigIntegerField(default=0)
-    user=models.TextField(max_length=30,null=False,blank=False,default="Admin")
+    user=models.TextField(max_length=30,null=False,blank=False,default="Book Trekker")
 
 
     def __str__(self):
