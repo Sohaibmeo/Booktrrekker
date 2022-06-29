@@ -22,7 +22,7 @@ from django.shortcuts import render,redirect
 import stripe
 from django.views.generic import View,TemplateView,CreateView,FormView  ,DetailView , ListView
 from .models import *
-from .forms import CheckoutForm , CustomerRegistrationForm,CustomerLoginForm,ProductForm,PasswordForgotForm,PasswordResetForm,AddRatingForm
+from .forms import CheckoutForm ,ContactUsForm, CustomerRegistrationForm,CustomerLoginForm,ProductForm,PasswordForgotForm,PasswordResetForm,AddRatingForm
 from django.urls import reverse_lazy , reverse
 # for complex searching of products import Q
 from django.db.models import Q
@@ -470,18 +470,22 @@ class AboutView(EcomMixin,TemplateView):
 
 
 
-class ContactView(EcomMixin,TemplateView):
+class ContactView(EcomMixin,FormView):
     template_name="contact.html"
+    form_class=ContactUsForm
+    success_url=reverse_lazy("ecomapp:home")
 
-    def post(self,request,*args,**kwargs):
-        name=request.POST.get('name',default="" )
-        email=request.POST.get('email',default="")
-        phone=request.POST.get('phone',default="" )
-        desc=request.POST.get('desc',default="" )
+    def form_valid(self,form):
+        name=form.cleaned_data.get("name")
+        email=form.cleaned_data.get("email")
+        phone=form.cleaned_data.get('phone')
+        desc=form.cleaned_data.get('desc')
         query=Contact(name=name,email=email,phone=phone,desc=desc)
         query.save()
+        return super().form_valid(form)
+        # return redirect("/all-products/")
 
-        return redirect("/all-products/")
+        
 
 
 # mydashboard only to show the books that are already bought

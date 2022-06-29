@@ -1,46 +1,37 @@
-{% extends 'base.html' %}
-{% block title %}Contact{% endblock %}
-{% block content  %}
-{% load static %}
-
-<link rel="stylesheet" href="{% static 'ecomapp/css/contactus.css' %}">
- <div class="container">
-   	<div class="front side">
-   		<div class="content"><h1>WE VALUE YOUR OPINION</h1>
-			<p class="my-3">We are constantly looking forward to improve ourself and are willing to look at every problem for both of our sake!
-        Please feel free to drop any comments you have
-			</p>
-      <i class="fa fa-instagram" style="font-size:48px;color:red"></i>
-		</div>
-	</div>
 
 
-	<div class="back side">
-    <div class="content">
-    <b> <h3 class="my-3" style="color:darkblue;">Contact Us Regarding any Problem!!</h3></b>
-     <form action="" method="post">
-
-         {% csrf_token %}
-  <div class="form-group my-3">
-    <label for="name" ><b>Name:</b></label>
-    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Your name here" required>
-  </div>
-
-  <div class="form-group my-3">
-    <label for="name"><b>Email Address:</b></label>
-    <input type="email" class="form-control" name="email" id="email" placeholder="Enter Your email address:" required>
-  </div>
-         <div class="form-group my-3">
-    <label for="name" ><b>Contact#</b></label>
-    <input type="tel" class="form-control" name="phone" id="phone" placeholder="Your Contact#" required>
-  </div>
-         <div class="form-group my-3">
-    <label for="desc"><b>How may i help you ?</b></label>
-    <textarea class="form-control" name="desc" id="desc" rows="3" required></textarea>
-  </div>
-         <button type="submit" class="btn btn-primary my-4 white-mode">Submit</button>
-</form>
- </div>
-</div>
-</div>
+    {% extends 'base.html' %}
+    {% block title %}
+    Contact-Book Trekker
     {% endblock %}
+    {% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'ecomapp/css/cart.css' %}">
+    <style >
+        .errorlist{
+            color:green;
+            
+    
+        }
+            </style>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <img   src="/media/products/logo.png" alt="logo" width="200" height="100">
+                    <h2 > Contact Us </h2><hr>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                       <p> <b style="color: black;">{{form.as_p}}</b></p>
+                        <button class="btn btn-danger">Submit Query</button>
+                        {% if error%}
+                        <list style="color:red; background-color:white" >{{error}}</list>
+                        {% endif %}
+                    </form>
+                
+                  </div>
+
+            </div>
+        </div>
+    {% endblock %}
+    
+
